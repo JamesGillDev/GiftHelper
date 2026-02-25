@@ -7,7 +7,7 @@
 Gift Helper is a local-first web app for tracking gift ideas by recipient and occasion, with budgets, priorities, and statuses.
 
 ## Live Deployment
-- Azure App Service: _pending deployment URL_
+- Azure App Service: deployment attempt blocked because the current Azure subscription is read-only/disabled for write operations.
 
 ## What It Includes
 - Dashboard with:
@@ -65,7 +65,8 @@ Gift Helper is a local-first web app for tracking gift ideas by recipient and oc
    ```
 
 ## Release
-- Latest Release: _pending_
+- Repository: https://github.com/JamesGillDev/GiftHelper
+- Latest Release: https://github.com/JamesGillDev/GiftHelper/releases/tag/v1.0.0
 
 ## License
 This project is licensed under the **Business Source License 1.1 (BLS)**.
