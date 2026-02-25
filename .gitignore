@@ -18,6 +18,7 @@ run-error.log
 
 # Database / local app data
 src/GiftHelper.Web/App_Data/
+.artifacts/
 
 # OS files
 Thumbs.db
