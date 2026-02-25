@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: gifthelper
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        value: Data Source=/var/data/gifthelper.db
+    disk:
+      name: gifthelper-data
+      mountPath: /var/data
+      sizeGB: 1

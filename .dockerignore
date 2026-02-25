@@ -1,0 +1,8 @@
+.git
+.gitignore
+.vs
+.vscode
+.artifacts
+**/bin
+**/obj
+**/App_Data

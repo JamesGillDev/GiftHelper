@@ -6,26 +6,12 @@
 
 Gift Helper is a local-first web app for tracking gift ideas by recipient and occasion, with budgets, priorities, and statuses.
 
-## Live Deployment
-- Azure App Service: deployment attempt blocked because the current Azure subscription is read-only/disabled for write operations.
-
 ## What It Includes
-- Dashboard with:
-  - upcoming occasions (default next 60 days)
-  - gift status summary
-  - quick-add gift idea form
+- Dashboard with upcoming occasions, gift status summary, and quick-add gift form
 - Recipients page with full CRUD and name search
-- Recipient details page with:
-  - recipient profile
-  - upcoming occasions
-  - recipient-scoped gift list with status/search filters
-  - quick add gift idea
-- Occasions page with full CRUD and recurring date projection / days-until display
-- Gifts page with full CRUD and global filters:
-  - recipient
-  - status
-  - priority
-  - search (title/description/store/category)
+- Recipient details page with recipient profile, upcoming occasions, and recipient-scoped gift filters
+- Occasions page with full CRUD and recurring yearly days-until projection
+- Gifts page with full CRUD and global filters (recipient, status, priority, search)
 
 ## Tech Stack
 - .NET 8 (LTS)
@@ -34,16 +20,9 @@ Gift Helper is a local-first web app for tracking gift ideas by recipient and oc
 - DataAnnotations validation
 
 ## Architecture
-- `src/GiftHelper.Domain`
-  - POCO entities and enums
-- `src/GiftHelper.Data`
-  - `GiftHelperDbContext`
-  - migrations
-  - seed initialization
-  - service layer (`RecipientService`, `OccasionService`, `GiftIdeaService`)
-- `src/GiftHelper.Web`
-  - UI components/pages
-  - DI/configuration/startup migration
+- `src/GiftHelper.Domain`: entities and enums
+- `src/GiftHelper.Data`: `GiftHelperDbContext`, migrations, seed initializer, service layer
+- `src/GiftHelper.Web`: UI pages/components, DI, startup migration logic
 
 ## Run Locally
 1. Restore and build:
@@ -51,20 +30,35 @@ Gift Helper is a local-first web app for tracking gift ideas by recipient and oc
    dotnet restore GiftHelper.sln
    dotnet build GiftHelper.sln
    ```
-2. Ensure local tools are restored:
+2. Restore local tools:
    ```powershell
    dotnet tool restore
    ```
-3. Apply database migration:
+3. Apply migration:
    ```powershell
    dotnet dotnet-ef database update --project src/GiftHelper.Data --startup-project src/GiftHelper.Web
    ```
-4. Run the app:
+4. Run:
    ```powershell
    dotnet run --project src/GiftHelper.Web
    ```
 
-## Release
+## Deploy Without Azure (Render)
+This repo includes a Docker deployment path for Render (`Dockerfile` + `render.yaml`).
+
+1. Push this repo to GitHub.
+2. In Render, choose **Blueprint** deployment and select this repo.
+3. Render will read `render.yaml` and create:
+   - one web service (`gifthelper`)
+   - one persistent disk mounted at `/var/data` for SQLite
+4. Deploy. The app auto-runs EF migrations on startup.
+
+### Important Render notes
+- The provided `render.yaml` uses `plan: starter` so the SQLite database can persist on disk.
+- Free plans do not support persistent disks, so data can be lost on restarts/redeploys.
+- Database location in production is `Data Source=/var/data/gifthelper.db`.
+
+## Public Project Links
 - Repository: https://github.com/JamesGillDev/GiftHelper
 - Latest Release: https://github.com/JamesGillDev/GiftHelper/releases/tag/v1.0.0
 - Release Build (ZIP): https://github.com/JamesGillDev/GiftHelper/releases/download/v1.0.0/GiftHelper.Web.v1.0.0.zip
