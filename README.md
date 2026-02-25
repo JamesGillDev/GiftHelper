@@ -67,6 +67,7 @@ Gift Helper is a local-first web app for tracking gift ideas by recipient and oc
 ## Release
 - Repository: https://github.com/JamesGillDev/GiftHelper
 - Latest Release: https://github.com/JamesGillDev/GiftHelper/releases/tag/v1.0.0
+- Release Build (ZIP): https://github.com/JamesGillDev/GiftHelper/releases/download/v1.0.0/GiftHelper.Web.v1.0.0.zip
 
 ## License
 This project is licensed under the **Business Source License 1.1 (BLS)**.
