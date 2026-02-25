@@ -1,0 +1,19 @@
+<span class="gift-status-badge @GetCssClass(Status)">@Status</span>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public GiftStatus Status { get; set; }
+
+    private static string GetCssClass(GiftStatus status) => status switch
+    {
+        GiftStatus.Idea => "status-idea",
+        GiftStatus.Researching => "status-researching",
+        GiftStatus.Purchased => "status-purchased",
+        GiftStatus.Wrapped => "status-wrapped",
+        GiftStatus.Shipped => "status-shipped",
+        GiftStatus.Given => "status-given",
+        GiftStatus.Archived => "status-archived",
+        _ => "status-idea"
+    };
+}

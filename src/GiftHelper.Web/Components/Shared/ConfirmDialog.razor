@@ -1,0 +1,38 @@
+@if (IsOpen)
+{
+    <div class="confirm-overlay" role="dialog" aria-modal="true" aria-label="Confirmation Dialog">
+        <div class="confirm-dialog">
+            <h3>@Title</h3>
+            <p>@Message</p>
+
+            <div class="confirm-actions">
+                <button class="btn btn-outline-secondary" type="button" @onclick="HandleCancelAsync">Cancel</button>
+                <button class="btn btn-danger" type="button" @onclick="HandleConfirmAsync">@ConfirmText</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = "Confirm";
+
+    [Parameter]
+    public string Message { get; set; } = "Are you sure?";
+
+    [Parameter]
+    public string ConfirmText { get; set; } = "Delete";
+
+    [Parameter]
+    public EventCallback OnConfirm { get; set; }
+
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    private Task HandleConfirmAsync() => OnConfirm.InvokeAsync();
+
+    private Task HandleCancelAsync() => OnCancel.InvokeAsync();
+}

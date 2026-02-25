@@ -1,0 +1,24 @@
+# Build outputs
+bin/
+obj/
+
+# Rider / VS / VS Code
+.idea/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs and local runtime files
+*.log
+run-output.log
+run-error.log
+
+# Database / local app data
+src/GiftHelper.Web/App_Data/
+
+# OS files
+Thumbs.db
+.DS_Store

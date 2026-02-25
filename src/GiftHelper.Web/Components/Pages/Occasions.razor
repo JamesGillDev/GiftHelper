@@ -1,0 +1,302 @@
+@page "/occasions"
+@inject OccasionService OccasionService
+@inject RecipientService RecipientService
+
+<PageTitle>Occasions</PageTitle>
+
+<div class="gh-page-header">
+    <h2>Occasions</h2>
+    <button type="button" class="btn btn-primary" @onclick="StartCreate">Add Occasion</button>
+</div>
+<p class="gh-subtitle">Track birthdays, holidays, and milestone dates linked to recipients or general events.</p>
+
+<section class="gh-card">
+    @if (!string.IsNullOrWhiteSpace(_feedbackMessage))
+    {
+        <div class="alert alert-success py-2" role="alert">@_feedbackMessage</div>
+    }
+
+    @if (_occasionItems.Count == 0)
+    {
+        <p class="gh-muted mb-0">No occasions found.</p>
+    }
+    else
+    {
+        <table class="gh-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Recipient</th>
+                    <th>Base Date</th>
+                    <th>Next Date</th>
+                    <th>Days Until</th>
+                    <th>Recurring</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in _occasionItems)
+                {
+                    <tr>
+                        <td>@item.Occasion.Name</td>
+                        <td>@(item.Occasion.Recipient?.Name ?? "General")</td>
+                        <td>@item.Occasion.Date.ToString("MMM dd, yyyy")</td>
+                        <td>@item.ProjectedDate.ToString("MMM dd, yyyy")</td>
+                        <td>@GetDaysUntilLabel(item.DaysUntil)</td>
+                        <td>@(item.Occasion.IsRecurringYearly ? "Yes" : "No")</td>
+                        <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" @onclick="() => StartEdit(item.Occasion)">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => PromptDelete(item.Occasion)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>
+
+<section class="gh-card mt-3">
+    <h3>@(_isEditing ? "Edit Occasion" : "Add Occasion")</h3>
+
+    <EditForm Model="_formModel" OnValidSubmit="SaveOccasionAsync">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="gh-form-grid">
+            <div>
+                <label class="form-label" for="occasionName">Name</label>
+                <InputText id="occasionName" class="form-control" @bind-Value="_formModel.Name" />
+            </div>
+
+            <div>
+                <label class="form-label" for="occasionDate">Date</label>
+                <InputDate TValue="DateOnly" id="occasionDate" class="form-control" @bind-Value="_formModel.Date" />
+            </div>
+
+            <div>
+                <label class="form-label" for="occasionRecipient">Recipient (optional)</label>
+                <InputSelect id="occasionRecipient" class="form-select" @bind-Value="_formModel.RecipientId">
+                    <option value="">General occasion</option>
+                    @foreach (var recipient in _recipients)
+                    {
+                        <option value="@recipient.Id">@recipient.Name</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <div class="form-check mt-4">
+                    <InputCheckbox id="occasionRecurring" class="form-check-input" @bind-Value="_formModel.IsRecurringYearly" />
+                    <label class="form-check-label" for="occasionRecurring">Recurring yearly</label>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1;">
+                <label class="form-label" for="occasionNotes">Notes</label>
+                <InputTextArea id="occasionNotes" class="form-control" @bind-Value="_formModel.Notes" />
+            </div>
+        </div>
+
+        <div class="gh-form-actions">
+            <button type="submit" class="btn btn-primary">@(_isEditing ? "Save Changes" : "Create Occasion")</button>
+
+            @if (_isEditing)
+            {
+                <button type="button" class="btn btn-outline-secondary" @onclick="StartCreate">Cancel</button>
+            }
+        </div>
+    </EditForm>
+</section>
+
+<ConfirmDialog
+    IsOpen="_showDeleteDialog"
+    Title="Delete Occasion"
+    Message="Delete this occasion? Gift ideas linked to it will be kept and unlinked."
+    ConfirmText="Delete"
+    OnConfirm="ConfirmDeleteAsync"
+    OnCancel="CancelDelete" />
+
+@code {
+    private bool _isEditing;
+    private bool _showDeleteDialog;
+
+    private int _editingId;
+    private Occasion? _pendingDelete;
+    private string? _feedbackMessage;
+
+    private List<Recipient> _recipients = [];
+    private List<OccasionListItem> _occasionItems = [];
+
+    private OccasionFormModel _formModel = CreateNewForm();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRecipientsAsync();
+        await LoadOccasionsAsync();
+    }
+
+    private async Task LoadRecipientsAsync()
+    {
+        _recipients = await RecipientService.GetAllAsync();
+    }
+
+    private async Task LoadOccasionsAsync()
+    {
+        var occasions = await OccasionService.GetAllAsync();
+        var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+        _occasionItems = occasions
+            .Select(occasion =>
+            {
+                var projectedDate = OccasionService.ProjectDate(occasion, today);
+                return new OccasionListItem
+                {
+                    Occasion = occasion,
+                    ProjectedDate = projectedDate,
+                    DaysUntil = projectedDate.DayNumber - today.DayNumber
+                };
+            })
+            .OrderBy(item => item.DaysUntil < 0 ? int.MaxValue : item.DaysUntil)
+            .ThenBy(item => item.Occasion.Name)
+            .ToList();
+    }
+
+    private void StartCreate()
+    {
+        _isEditing = false;
+        _editingId = 0;
+        _formModel = CreateNewForm();
+    }
+
+    private void StartEdit(Occasion occasion)
+    {
+        _isEditing = true;
+        _editingId = occasion.Id;
+
+        _formModel = new OccasionFormModel
+        {
+            Name = occasion.Name,
+            Date = occasion.Date,
+            IsRecurringYearly = occasion.IsRecurringYearly,
+            RecipientId = occasion.RecipientId,
+            Notes = occasion.Notes
+        };
+    }
+
+    private async Task SaveOccasionAsync()
+    {
+        if (_isEditing)
+        {
+            var updated = new Occasion
+            {
+                Id = _editingId,
+                Name = _formModel.Name.Trim(),
+                Date = _formModel.Date,
+                IsRecurringYearly = _formModel.IsRecurringYearly,
+                RecipientId = _formModel.RecipientId,
+                Notes = Clean(_formModel.Notes)
+            };
+
+            await OccasionService.UpdateAsync(updated);
+            _feedbackMessage = "Occasion updated.";
+        }
+        else
+        {
+            var created = new Occasion
+            {
+                Name = _formModel.Name.Trim(),
+                Date = _formModel.Date,
+                IsRecurringYearly = _formModel.IsRecurringYearly,
+                RecipientId = _formModel.RecipientId,
+                Notes = Clean(_formModel.Notes)
+            };
+
+            await OccasionService.CreateAsync(created);
+            _feedbackMessage = "Occasion added.";
+        }
+
+        await LoadOccasionsAsync();
+        StartCreate();
+    }
+
+    private void PromptDelete(Occasion occasion)
+    {
+        _pendingDelete = occasion;
+        _showDeleteDialog = true;
+    }
+
+    private async Task ConfirmDeleteAsync()
+    {
+        if (_pendingDelete is not null)
+        {
+            await OccasionService.DeleteAsync(_pendingDelete.Id);
+            _feedbackMessage = "Occasion deleted.";
+            await LoadOccasionsAsync();
+
+            if (_isEditing && _editingId == _pendingDelete.Id)
+            {
+                StartCreate();
+            }
+        }
+
+        _pendingDelete = null;
+        _showDeleteDialog = false;
+    }
+
+    private Task CancelDelete()
+    {
+        _pendingDelete = null;
+        _showDeleteDialog = false;
+        return Task.CompletedTask;
+    }
+
+    private static string GetDaysUntilLabel(int daysUntil)
+    {
+        return daysUntil switch
+        {
+            0 => "Today",
+            > 0 => $"In {daysUntil} day(s)",
+            _ => $"{Math.Abs(daysUntil)} day(s) ago"
+        };
+    }
+
+    private static string? Clean(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+
+    private static OccasionFormModel CreateNewForm()
+    {
+        return new OccasionFormModel
+        {
+            Date = DateOnly.FromDateTime(DateTime.UtcNow),
+            IsRecurringYearly = true
+        };
+    }
+
+    private sealed class OccasionListItem
+    {
+        public required Occasion Occasion { get; init; }
+
+        public DateOnly ProjectedDate { get; init; }
+
+        public int DaysUntil { get; init; }
+    }
+
+    private sealed class OccasionFormModel
+    {
+        [Required]
+        [StringLength(200)]
+        public string Name { get; set; } = string.Empty;
+
+        [Required]
+        public DateOnly Date { get; set; }
+
+        public bool IsRecurringYearly { get; set; } = true;
+
+        public int? RecipientId { get; set; }
+
+        [StringLength(2000)]
+        public string? Notes { get; set; }
+    }
+}

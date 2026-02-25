@@ -1,0 +1,200 @@
+:root {
+    --gh-bg: #eef5ef;
+    --gh-surface: #f8faf8;
+    --gh-card: #ffffff;
+    --gh-text: #1d3026;
+    --gh-muted: #5e7267;
+    --gh-border: #d2ddd6;
+    --gh-accent: #1f6f50;
+    --gh-accent-soft: #e4f2eb;
+    --gh-danger: #b23838;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(circle at top right, #d9eadf 0%, var(--gh-bg) 42%, #edf3ef 100%);
+    color: var(--gh-text);
+    font-family: "Trebuchet MS", "Gill Sans", sans-serif;
+}
+
+a,
+.btn-link {
+    color: var(--gh-accent);
+}
+
+a:hover {
+    color: #16553d;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--gh-text);
+}
+
+.gh-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.gh-page-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.gh-subtitle {
+    color: var(--gh-muted);
+    margin-bottom: 1rem;
+}
+
+.gh-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.gh-card {
+    background: var(--gh-card);
+    border: 1px solid var(--gh-border);
+    border-radius: 0.85rem;
+    box-shadow: 0 8px 24px rgba(28, 48, 38, 0.05);
+    padding: 1rem;
+}
+
+.gh-card h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+}
+
+.gh-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.gh-toolbar .form-label {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--gh-muted);
+}
+
+.gh-toolbar .form-control,
+.gh-toolbar .form-select {
+    min-width: 140px;
+}
+
+.gh-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+}
+
+.gh-form-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.gh-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.gh-table thead th {
+    border-bottom: 1px solid var(--gh-border);
+    color: var(--gh-muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    padding: 0.65rem 0.5rem;
+}
+
+.gh-table td {
+    border-bottom: 1px solid #edf2ef;
+    padding: 0.65rem 0.5rem;
+    vertical-align: top;
+}
+
+.gh-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.gh-muted {
+    color: var(--gh-muted);
+}
+
+.gh-pill {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    background: var(--gh-accent-soft);
+    color: var(--gh-accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--gh-accent);
+    border-color: var(--gh-accent);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #16553d;
+    border-color: #16553d;
+}
+
+.btn-outline-danger {
+    color: var(--gh-danger);
+    border-color: var(--gh-danger);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--gh-danger);
+    border-color: var(--gh-danger);
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: #96bca9;
+    box-shadow: 0 0 0 0.2rem rgba(31, 111, 80, 0.18);
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #3f9b62;
+}
+
+.invalid {
+    outline: 1px solid #da4242;
+}
+
+.validation-message {
+    color: #da4242;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+    .gh-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gh-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .gh-toolbar .form-control,
+    .gh-toolbar .form-select {
+        min-width: 100%;
+    }
+}

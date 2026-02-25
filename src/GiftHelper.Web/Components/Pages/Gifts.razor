@@ -1,0 +1,506 @@
+@page "/gifts"
+@inject GiftIdeaService GiftIdeaService
+@inject RecipientService RecipientService
+@inject OccasionService OccasionService
+
+<PageTitle>Gifts</PageTitle>
+
+<div class="gh-page-header">
+    <h2>Gifts</h2>
+    <button type="button" class="btn btn-primary" @onclick="StartCreate">Add Gift Idea</button>
+</div>
+<p class="gh-subtitle">View and manage all gift ideas across recipients and occasions.</p>
+
+<section class="gh-card">
+    <div class="gh-toolbar">
+        <div>
+            <label class="form-label" for="filterRecipient">Recipient</label>
+            <InputSelect id="filterRecipient" class="form-select" @bind-Value="_recipientFilter">
+                <option value="">All recipients</option>
+                @foreach (var recipient in _recipients)
+                {
+                    <option value="@recipient.Id">@recipient.Name</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div>
+            <label class="form-label" for="filterStatus">Status</label>
+            <InputSelect id="filterStatus" class="form-select" @bind-Value="_statusFilter">
+                <option value="">All statuses</option>
+                @foreach (var status in Enum.GetValues<GiftStatus>())
+                {
+                    <option value="@status">@status</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div>
+            <label class="form-label" for="filterPriority">Priority</label>
+            <InputSelect id="filterPriority" class="form-select" @bind-Value="_priorityFilter">
+                <option value="">All priorities</option>
+                @foreach (var priority in Enum.GetValues<GiftPriority>())
+                {
+                    <option value="@priority">@priority</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div>
+            <label class="form-label" for="filterSearch">Search</label>
+            <InputText id="filterSearch" class="form-control" @bind-Value="_searchText" />
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-secondary" @onclick="LoadGiftsAsync">Apply</button>
+            <button type="button" class="btn btn-outline-secondary" @onclick="ClearFiltersAsync">Clear</button>
+        </div>
+    </div>
+
+    @if (_gifts.Count == 0)
+    {
+        <p class="gh-muted mb-0">No gifts match the current filters.</p>
+    }
+    else
+    {
+        <table class="gh-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Recipient</th>
+                    <th>Occasion</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Estimate</th>
+                    <th>Paid</th>
+                    <th>Surprise</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var gift in _gifts)
+                {
+                    <tr>
+                        <td>@gift.Title</td>
+                        <td>@gift.Recipient.Name</td>
+                        <td>@(gift.Occasion?.Name ?? "-")</td>
+                        <td><GiftStatusBadge Status="@gift.Status" /></td>
+                        <td>@gift.Priority</td>
+                        <td>@(gift.PriceEstimate.HasValue ? gift.PriceEstimate.Value.ToString("C") : "-")</td>
+                        <td>@(gift.PricePaid.HasValue ? gift.PricePaid.Value.ToString("C") : "-")</td>
+                        <td>@(gift.IsSurprise ? "Yes" : "No")</td>
+                        <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" @onclick="() => StartEdit(gift)">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => PromptDelete(gift)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>
+
+<section class="gh-card mt-3">
+    <h3>@(_isEditing ? "Edit Gift Idea" : "Add Gift Idea")</h3>
+
+    @if (!string.IsNullOrWhiteSpace(_feedbackMessage))
+    {
+        <div class="alert alert-success py-2" role="alert">@_feedbackMessage</div>
+    }
+
+    <EditForm Model="_formModel" OnValidSubmit="SaveGiftAsync">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="gh-form-grid">
+            <div>
+                <label class="form-label" for="giftRecipient">Recipient</label>
+                <InputSelect id="giftRecipient" class="form-select" @bind-Value="_formModel.RecipientId" @bind-Value:after="HandleRecipientChanged">
+                    <option value="0">Select recipient</option>
+                    @foreach (var recipient in _recipients)
+                    {
+                        <option value="@recipient.Id">@recipient.Name</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div>
+                <label class="form-label" for="giftOccasion">Occasion</label>
+                <InputSelect id="giftOccasion" class="form-select" @bind-Value="_formModel.OccasionId">
+                    <option value="">No occasion</option>
+                    @foreach (var occasion in GetOccasionOptions())
+                    {
+                        <option value="@occasion.Id">@occasion.Name</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div>
+                <label class="form-label" for="giftTitle">Title</label>
+                <InputText id="giftTitle" class="form-control" @bind-Value="_formModel.Title" />
+            </div>
+
+            <div>
+                <label class="form-label" for="giftStore">Store</label>
+                <InputText id="giftStore" class="form-control" @bind-Value="_formModel.Store" />
+            </div>
+
+            <div>
+                <label class="form-label" for="giftUrl">URL</label>
+                <InputText id="giftUrl" class="form-control" @bind-Value="_formModel.Url" />
+            </div>
+
+            <div>
+                <label class="form-label" for="giftCategory">Category</label>
+                <InputText id="giftCategory" class="form-control" @bind-Value="_formModel.Category" />
+            </div>
+
+            <div>
+                <label class="form-label" for="giftEstimate">Price Estimate</label>
+                <InputNumber id="giftEstimate" class="form-control" @bind-Value="_formModel.PriceEstimate" />
+            </div>
+
+            <div>
+                <label class="form-label" for="giftPaid">Price Paid</label>
+                <InputNumber id="giftPaid" class="form-control" @bind-Value="_formModel.PricePaid" />
+            </div>
+
+            <div>
+                <label class="form-label" for="giftStatus">Status</label>
+                <InputSelect id="giftStatus" class="form-select" @bind-Value="_formModel.Status">
+                    @foreach (var status in Enum.GetValues<GiftStatus>())
+                    {
+                        <option value="@status">@status</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div>
+                <label class="form-label" for="giftPriority">Priority</label>
+                <InputSelect id="giftPriority" class="form-select" @bind-Value="_formModel.Priority">
+                    @foreach (var priority in Enum.GetValues<GiftPriority>())
+                    {
+                        <option value="@priority">@priority</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div>
+                <label class="form-label" for="giftPurchasedDate">Purchased Date</label>
+                <InputDate TValue="DateOnly?" id="giftPurchasedDate" class="form-control" @bind-Value="_formModel.PurchasedDate" />
+            </div>
+
+            <div class="d-flex align-items-center">
+                <div class="form-check mt-4">
+                    <InputCheckbox id="giftSurprise" class="form-check-input" @bind-Value="_formModel.IsSurprise" />
+                    <label class="form-check-label" for="giftSurprise">Surprise gift</label>
+                </div>
+            </div>
+
+            <div style="grid-column: 1 / -1;">
+                <label class="form-label" for="giftDescription">Description</label>
+                <InputTextArea id="giftDescription" class="form-control" @bind-Value="_formModel.Description" />
+            </div>
+
+            <div style="grid-column: 1 / -1;">
+                <label class="form-label" for="giftNotes">Notes</label>
+                <InputTextArea id="giftNotes" class="form-control" @bind-Value="_formModel.Notes" />
+            </div>
+        </div>
+
+        <div class="gh-form-actions">
+            <button type="submit" class="btn btn-primary">@(_isEditing ? "Save Changes" : "Create Gift")</button>
+
+            @if (_isEditing)
+            {
+                <button type="button" class="btn btn-outline-secondary" @onclick="StartCreate">Cancel</button>
+            }
+        </div>
+    </EditForm>
+</section>
+
+<ConfirmDialog
+    IsOpen="_showDeleteDialog"
+    Title="Delete Gift Idea"
+    Message="Delete this gift idea permanently?"
+    ConfirmText="Delete"
+    OnConfirm="ConfirmDeleteAsync"
+    OnCancel="CancelDelete" />
+
+@code {
+    private bool _isEditing;
+    private bool _showDeleteDialog;
+
+    private int _editingId;
+    private GiftIdea? _pendingDelete;
+
+    private string _recipientFilter = string.Empty;
+    private string _statusFilter = string.Empty;
+    private string _priorityFilter = string.Empty;
+    private string _searchText = string.Empty;
+    private string? _feedbackMessage;
+
+    private List<GiftIdea> _gifts = [];
+    private List<Recipient> _recipients = [];
+    private List<Occasion> _occasions = [];
+
+    private GiftIdeaFormModel _formModel = CreateNewFormModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadLookupDataAsync();
+        await LoadGiftsAsync();
+
+        if (_recipients.Count > 0)
+        {
+            _formModel.RecipientId = _recipients[0].Id;
+        }
+    }
+
+    private async Task LoadLookupDataAsync()
+    {
+        _recipients = await RecipientService.GetAllAsync();
+        _occasions = await OccasionService.GetAllAsync();
+    }
+
+    private async Task LoadGiftsAsync()
+    {
+        var filter = new GiftIdeaFilter
+        {
+            RecipientId = ParseInt(_recipientFilter),
+            Status = ParseEnum<GiftStatus>(_statusFilter),
+            Priority = ParseEnum<GiftPriority>(_priorityFilter),
+            SearchText = Clean(_searchText)
+        };
+
+        _gifts = await GiftIdeaService.GetAllAsync(filter);
+    }
+
+    private async Task ClearFiltersAsync()
+    {
+        _recipientFilter = string.Empty;
+        _statusFilter = string.Empty;
+        _priorityFilter = string.Empty;
+        _searchText = string.Empty;
+
+        await LoadGiftsAsync();
+    }
+
+    private void StartCreate()
+    {
+        _isEditing = false;
+        _editingId = 0;
+        _feedbackMessage = null;
+
+        _formModel = CreateNewFormModel();
+
+        if (_recipients.Count > 0)
+        {
+            _formModel.RecipientId = _recipients[0].Id;
+        }
+
+        EnsureSelectedOccasionIsValid();
+    }
+
+    private void StartEdit(GiftIdea gift)
+    {
+        _isEditing = true;
+        _editingId = gift.Id;
+
+        _formModel = new GiftIdeaFormModel
+        {
+            RecipientId = gift.RecipientId,
+            OccasionId = gift.OccasionId,
+            Title = gift.Title,
+            Description = gift.Description,
+            Url = gift.Url,
+            Store = gift.Store,
+            PriceEstimate = gift.PriceEstimate,
+            PricePaid = gift.PricePaid,
+            Status = gift.Status,
+            Priority = gift.Priority,
+            Category = gift.Category,
+            IsSurprise = gift.IsSurprise,
+            PurchasedDate = gift.PurchasedDateUtc.HasValue
+                ? DateOnly.FromDateTime(gift.PurchasedDateUtc.Value)
+                : null,
+            Notes = gift.Notes
+        };
+
+        _feedbackMessage = null;
+        EnsureSelectedOccasionIsValid();
+    }
+
+    private void HandleRecipientChanged()
+    {
+        EnsureSelectedOccasionIsValid();
+    }
+
+    private IEnumerable<Occasion> GetOccasionOptions()
+    {
+        if (_formModel.RecipientId <= 0)
+        {
+            return _occasions;
+        }
+
+        return _occasions.Where(x => x.RecipientId is null || x.RecipientId == _formModel.RecipientId);
+    }
+
+    private void EnsureSelectedOccasionIsValid()
+    {
+        if (!_formModel.OccasionId.HasValue)
+        {
+            return;
+        }
+
+        var isValid = GetOccasionOptions().Any(x => x.Id == _formModel.OccasionId.Value);
+
+        if (!isValid)
+        {
+            _formModel.OccasionId = null;
+        }
+    }
+
+    private async Task SaveGiftAsync()
+    {
+        if (_isEditing)
+        {
+            var updated = BuildEntityFromForm();
+            updated.Id = _editingId;
+
+            await GiftIdeaService.UpdateAsync(updated);
+            _feedbackMessage = "Gift idea updated.";
+        }
+        else
+        {
+            var created = BuildEntityFromForm();
+            await GiftIdeaService.CreateAsync(created);
+            _feedbackMessage = "Gift idea created.";
+        }
+
+        await LoadGiftsAsync();
+        StartCreate();
+    }
+
+    private void PromptDelete(GiftIdea gift)
+    {
+        _pendingDelete = gift;
+        _showDeleteDialog = true;
+    }
+
+    private async Task ConfirmDeleteAsync()
+    {
+        if (_pendingDelete is not null)
+        {
+            await GiftIdeaService.DeleteAsync(_pendingDelete.Id);
+            _feedbackMessage = "Gift idea deleted.";
+            await LoadGiftsAsync();
+
+            if (_isEditing && _editingId == _pendingDelete.Id)
+            {
+                StartCreate();
+            }
+        }
+
+        _pendingDelete = null;
+        _showDeleteDialog = false;
+    }
+
+    private Task CancelDelete()
+    {
+        _pendingDelete = null;
+        _showDeleteDialog = false;
+        return Task.CompletedTask;
+    }
+
+    private GiftIdea BuildEntityFromForm()
+    {
+        return new GiftIdea
+        {
+            RecipientId = _formModel.RecipientId,
+            OccasionId = _formModel.OccasionId,
+            Title = _formModel.Title.Trim(),
+            Description = Clean(_formModel.Description),
+            Url = Clean(_formModel.Url),
+            Store = Clean(_formModel.Store),
+            PriceEstimate = _formModel.PriceEstimate,
+            PricePaid = _formModel.PricePaid,
+            Status = _formModel.Status,
+            Priority = _formModel.Priority,
+            Category = Clean(_formModel.Category),
+            IsSurprise = _formModel.IsSurprise,
+            PurchasedDateUtc = _formModel.PurchasedDate.HasValue
+                ? DateTime.SpecifyKind(_formModel.PurchasedDate.Value.ToDateTime(TimeOnly.MinValue), DateTimeKind.Utc)
+                : null,
+            Notes = Clean(_formModel.Notes)
+        };
+    }
+
+    private static int? ParseInt(string value)
+    {
+        return int.TryParse(value, out var parsed) ? parsed : null;
+    }
+
+    private static TEnum? ParseEnum<TEnum>(string value)
+        where TEnum : struct, Enum
+    {
+        return Enum.TryParse<TEnum>(value, out var parsed) ? parsed : null;
+    }
+
+    private static string? Clean(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+
+    private static GiftIdeaFormModel CreateNewFormModel()
+    {
+        return new GiftIdeaFormModel
+        {
+            Status = GiftStatus.Idea,
+            Priority = GiftPriority.Medium,
+            IsSurprise = true
+        };
+    }
+
+    private sealed class GiftIdeaFormModel
+    {
+        [Range(1, int.MaxValue, ErrorMessage = "Recipient is required.")]
+        public int RecipientId { get; set; }
+
+        public int? OccasionId { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Title { get; set; } = string.Empty;
+
+        [StringLength(2000)]
+        public string? Description { get; set; }
+
+        [Url]
+        [StringLength(500)]
+        public string? Url { get; set; }
+
+        [StringLength(200)]
+        public string? Store { get; set; }
+
+        [Range(typeof(decimal), "0", "1000000", ErrorMessage = "Price estimate must be 0 or greater.")]
+        public decimal? PriceEstimate { get; set; }
+
+        [Range(typeof(decimal), "0", "1000000", ErrorMessage = "Price paid must be 0 or greater.")]
+        public decimal? PricePaid { get; set; }
+
+        public GiftStatus Status { get; set; }
+
+        public GiftPriority Priority { get; set; }
+
+        [StringLength(100)]
+        public string? Category { get; set; }
+
+        public bool IsSurprise { get; set; }
+
+        public DateOnly? PurchasedDate { get; set; }
+
+        [StringLength(2000)]
+        public string? Notes { get; set; }
+    }
+}

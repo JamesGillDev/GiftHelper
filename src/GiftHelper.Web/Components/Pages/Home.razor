@@ -1,0 +1,242 @@
+@page "/"
+@inject OccasionService OccasionService
+@inject GiftIdeaService GiftIdeaService
+@inject RecipientService RecipientService
+
+<PageTitle>Dashboard</PageTitle>
+
+<div class="gh-page-header">
+    <h2>Dashboard</h2>
+    <span class="gh-pill">Next 60 Days</span>
+</div>
+<p class="gh-subtitle">Upcoming occasions, gift progress, and quick capture for new ideas.</p>
+
+@if (_isLoading)
+{
+    <p><em>Loading dashboard...</em></p>
+}
+else
+{
+    <div class="gh-grid">
+        <section class="gh-card">
+            <h3>Upcoming Occasions</h3>
+
+            @if (_upcomingOccasions.Count == 0)
+            {
+                <p class="gh-muted mb-0">No occasions in the next 60 days.</p>
+            }
+            else
+            {
+                <table class="gh-table">
+                    <thead>
+                        <tr>
+                            <th>Occasion</th>
+                            <th>Recipient</th>
+                            <th>Date</th>
+                            <th>Days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in _upcomingOccasions)
+                        {
+                            <tr>
+                                <td>@item.OccasionName</td>
+                                <td>@(item.RecipientName ?? "General")</td>
+                                <td>@item.ProjectedDate.ToString("MMM dd, yyyy")</td>
+                                <td>@item.DaysUntil</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </section>
+
+        <section class="gh-card">
+            <h3>Gift Status Summary</h3>
+
+            @if (_statusSummary.Count == 0)
+            {
+                <p class="gh-muted mb-0">No gifts tracked yet.</p>
+            }
+            else
+            {
+                <table class="gh-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var statusItem in _statusSummary)
+                        {
+                            <tr>
+                                <td><GiftStatusBadge Status="@statusItem.Status" /></td>
+                                <td>@statusItem.Count</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </section>
+    </div>
+
+    <section class="gh-card mt-3">
+        <h3>Quick Add Gift Idea</h3>
+
+        @if (!string.IsNullOrWhiteSpace(_feedbackMessage))
+        {
+            <div class="alert alert-success py-2" role="alert">@_feedbackMessage</div>
+        }
+
+        <EditForm Model="_quickAddModel" OnValidSubmit="HandleQuickAddAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="gh-form-grid">
+                <div>
+                    <label class="form-label" for="quickRecipient">Recipient</label>
+                    <InputSelect id="quickRecipient" class="form-select" @bind-Value="_quickAddModel.RecipientId" @bind-Value:after="HandleRecipientChanged">
+                        <option value="0">Select recipient</option>
+                        @foreach (var recipient in _recipients)
+                        {
+                            <option value="@recipient.Id">@recipient.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+
+                <div>
+                    <label class="form-label" for="quickOccasion">Occasion (optional)</label>
+                    <InputSelect id="quickOccasion" class="form-select" @bind-Value="_quickAddModel.OccasionId">
+                        <option value="">No occasion</option>
+                        @foreach (var occasion in GetAvailableOccasions())
+                        {
+                            <option value="@occasion.Id">@occasion.Name</option>
+                        }
+                    </InputSelect>
+                </div>
+
+                <div>
+                    <label class="form-label" for="quickTitle">Title</label>
+                    <InputText id="quickTitle" class="form-control" @bind-Value="_quickAddModel.Title" />
+                </div>
+
+                <div>
+                    <label class="form-label" for="quickEstimate">Price Estimate</label>
+                    <InputNumber id="quickEstimate" class="form-control" @bind-Value="_quickAddModel.PriceEstimate" />
+                </div>
+            </div>
+
+            <div class="gh-form-actions">
+                <button type="submit" class="btn btn-primary">Add Gift Idea</button>
+            </div>
+        </EditForm>
+    </section>
+}
+
+@code {
+    private readonly int _upcomingWindowDays = 60;
+    private bool _isLoading = true;
+    private string? _feedbackMessage;
+
+    private List<Recipient> _recipients = [];
+    private List<Occasion> _occasions = [];
+    private List<UpcomingOccasionItem> _upcomingOccasions = [];
+    private List<GiftStatusCount> _statusSummary = [];
+
+    private QuickAddGiftIdeaModel _quickAddModel = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDashboardAsync();
+        _isLoading = false;
+    }
+
+    private async Task LoadDashboardAsync()
+    {
+        _recipients = await RecipientService.GetAllAsync();
+        _occasions = await OccasionService.GetAllAsync();
+        _upcomingOccasions = await OccasionService.GetUpcomingOccasionsAsync(_upcomingWindowDays);
+        _statusSummary = await GiftIdeaService.GetStatusSummaryAsync();
+
+        if (_quickAddModel.RecipientId == 0 && _recipients.Count > 0)
+        {
+            _quickAddModel.RecipientId = _recipients[0].Id;
+        }
+
+        EnsureOccasionSelectionIsValid();
+    }
+
+    private IEnumerable<Occasion> GetAvailableOccasions()
+    {
+        if (_quickAddModel.RecipientId <= 0)
+        {
+            return _occasions;
+        }
+
+        return _occasions.Where(x => x.RecipientId is null || x.RecipientId == _quickAddModel.RecipientId);
+    }
+
+    private void HandleRecipientChanged()
+    {
+        EnsureOccasionSelectionIsValid();
+    }
+
+    private void EnsureOccasionSelectionIsValid()
+    {
+        if (!_quickAddModel.OccasionId.HasValue)
+        {
+            return;
+        }
+
+        var availableOccasions = GetAvailableOccasions();
+        var isStillAvailable = availableOccasions.Any(x => x.Id == _quickAddModel.OccasionId.Value);
+
+        if (!isStillAvailable)
+        {
+            _quickAddModel.OccasionId = null;
+        }
+    }
+
+    private async Task HandleQuickAddAsync()
+    {
+        var recipientId = _quickAddModel.RecipientId;
+
+        var giftIdea = new GiftIdea
+        {
+            RecipientId = recipientId,
+            OccasionId = _quickAddModel.OccasionId,
+            Title = _quickAddModel.Title.Trim(),
+            PriceEstimate = _quickAddModel.PriceEstimate,
+            Status = GiftStatus.Idea,
+            Priority = GiftPriority.Medium,
+            IsSurprise = true
+        };
+
+        await GiftIdeaService.CreateAsync(giftIdea);
+
+        _feedbackMessage = $"Added gift idea: {_quickAddModel.Title.Trim()}";
+
+        _quickAddModel = new QuickAddGiftIdeaModel
+        {
+            RecipientId = recipientId
+        };
+
+        await LoadDashboardAsync();
+    }
+
+    private sealed class QuickAddGiftIdeaModel
+    {
+        [Range(1, int.MaxValue, ErrorMessage = "Recipient is required.")]
+        public int RecipientId { get; set; }
+
+        public int? OccasionId { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        public string Title { get; set; } = string.Empty;
+
+        [Range(typeof(decimal), "0", "1000000", ErrorMessage = "Price estimate must be 0 or greater.")]
+        public decimal? PriceEstimate { get; set; }
+    }
+}

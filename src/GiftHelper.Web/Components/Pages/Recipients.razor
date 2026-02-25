@@ -1,0 +1,251 @@
+@page "/recipients"
+@inject RecipientService RecipientService
+
+<PageTitle>Recipients</PageTitle>
+
+<div class="gh-page-header">
+    <h2>Recipients</h2>
+    <button type="button" class="btn btn-primary" @onclick="StartCreate">Add Recipient</button>
+</div>
+<p class="gh-subtitle">Manage people you buy gifts for and keep key details in one place.</p>
+
+<div class="gh-card">
+    <div class="gh-toolbar">
+        <div>
+            <label class="form-label" for="recipientSearch">Search by name</label>
+            <InputText id="recipientSearch" class="form-control" @bind-Value="_searchText" />
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-secondary" @onclick="LoadRecipientsAsync">Search</button>
+            <button type="button" class="btn btn-outline-secondary" @onclick="ClearSearchAsync">Clear</button>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(_feedbackMessage))
+    {
+        <div class="alert alert-success py-2" role="alert">@_feedbackMessage</div>
+    }
+
+    @if (_recipients.Count == 0)
+    {
+        <p class="gh-muted mb-0">No recipients found.</p>
+    }
+    else
+    {
+        <table class="gh-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Relationship</th>
+                    <th>Birthday</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var recipient in _recipients)
+                {
+                    <tr>
+                        <td>
+                            <a href="@($"recipients/{recipient.Id}")">@recipient.Name</a>
+                        </td>
+                        <td>@(string.IsNullOrWhiteSpace(recipient.Relationship) ? "-" : recipient.Relationship)</td>
+                        <td>@(recipient.Birthday?.ToString("MMM dd") ?? "-")</td>
+                        <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" @onclick="() => StartEdit(recipient)">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => PromptDelete(recipient)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<section class="gh-card mt-3">
+    <h3>@(_isEditing ? "Edit Recipient" : "Add Recipient")</h3>
+
+    <EditForm Model="_formModel" OnValidSubmit="SaveRecipientAsync">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="gh-form-grid">
+            <div>
+                <label class="form-label" for="recipientName">Name</label>
+                <InputText id="recipientName" class="form-control" @bind-Value="_formModel.Name" />
+            </div>
+
+            <div>
+                <label class="form-label" for="recipientRelationship">Relationship</label>
+                <InputText id="recipientRelationship" class="form-control" @bind-Value="_formModel.Relationship" />
+            </div>
+
+            <div>
+                <label class="form-label" for="recipientBirthday">Birthday</label>
+                <InputDate TValue="DateOnly?" id="recipientBirthday" class="form-control" @bind-Value="_formModel.Birthday" />
+            </div>
+
+            <div style="grid-column: 1 / -1;">
+                <label class="form-label" for="recipientNotes">Notes</label>
+                <InputTextArea id="recipientNotes" class="form-control" @bind-Value="_formModel.Notes" />
+            </div>
+        </div>
+
+        <div class="gh-form-actions">
+            <button type="submit" class="btn btn-primary">@(_isEditing ? "Save Changes" : "Create Recipient")</button>
+
+            @if (_isEditing)
+            {
+                <button type="button" class="btn btn-outline-secondary" @onclick="StartCreate">Cancel</button>
+            }
+        </div>
+    </EditForm>
+</section>
+
+<ConfirmDialog
+    IsOpen="_showDeleteDialog"
+    Title="Delete Recipient"
+    Message="This recipient and all linked gift ideas will be permanently removed. Continue?"
+    ConfirmText="Delete"
+    OnConfirm="ConfirmDeleteAsync"
+    OnCancel="CancelDelete" />
+
+@code {
+    private List<Recipient> _recipients = [];
+    private RecipientFormModel _formModel = new();
+
+    private bool _isEditing;
+    private int _editingId;
+    private string _searchText = string.Empty;
+    private string? _feedbackMessage;
+
+    private bool _showDeleteDialog;
+    private Recipient? _pendingDeleteRecipient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRecipientsAsync();
+    }
+
+    private async Task LoadRecipientsAsync()
+    {
+        _feedbackMessage = null;
+
+        _recipients = string.IsNullOrWhiteSpace(_searchText)
+            ? await RecipientService.GetAllAsync()
+            : await RecipientService.SearchByNameAsync(_searchText);
+    }
+
+    private async Task ClearSearchAsync()
+    {
+        _searchText = string.Empty;
+        await LoadRecipientsAsync();
+    }
+
+    private void StartCreate()
+    {
+        _isEditing = false;
+        _editingId = 0;
+        _formModel = new RecipientFormModel();
+    }
+
+    private void StartEdit(Recipient recipient)
+    {
+        _isEditing = true;
+        _editingId = recipient.Id;
+
+        _formModel = new RecipientFormModel
+        {
+            Name = recipient.Name,
+            Relationship = recipient.Relationship,
+            Birthday = recipient.Birthday,
+            Notes = recipient.Notes
+        };
+    }
+
+    private async Task SaveRecipientAsync()
+    {
+        if (_isEditing)
+        {
+            var updated = new Recipient
+            {
+                Id = _editingId,
+                Name = _formModel.Name.Trim(),
+                Relationship = Clean(_formModel.Relationship),
+                Birthday = _formModel.Birthday,
+                Notes = Clean(_formModel.Notes)
+            };
+
+            await RecipientService.UpdateAsync(updated);
+            _feedbackMessage = "Recipient updated.";
+        }
+        else
+        {
+            var created = new Recipient
+            {
+                Name = _formModel.Name.Trim(),
+                Relationship = Clean(_formModel.Relationship),
+                Birthday = _formModel.Birthday,
+                Notes = Clean(_formModel.Notes)
+            };
+
+            await RecipientService.CreateAsync(created);
+            _feedbackMessage = "Recipient added.";
+        }
+
+        await LoadRecipientsAsync();
+        StartCreate();
+    }
+
+    private void PromptDelete(Recipient recipient)
+    {
+        _pendingDeleteRecipient = recipient;
+        _showDeleteDialog = true;
+    }
+
+    private async Task ConfirmDeleteAsync()
+    {
+        if (_pendingDeleteRecipient is not null)
+        {
+            await RecipientService.DeleteAsync(_pendingDeleteRecipient.Id);
+            _feedbackMessage = "Recipient deleted.";
+
+            if (_isEditing && _editingId == _pendingDeleteRecipient.Id)
+            {
+                StartCreate();
+            }
+
+            await LoadRecipientsAsync();
+        }
+
+        _pendingDeleteRecipient = null;
+        _showDeleteDialog = false;
+    }
+
+    private Task CancelDelete()
+    {
+        _pendingDeleteRecipient = null;
+        _showDeleteDialog = false;
+        return Task.CompletedTask;
+    }
+
+    private static string? Clean(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+
+    private sealed class RecipientFormModel
+    {
+        [Required]
+        [StringLength(150)]
+        public string Name { get; set; } = string.Empty;
+
+        [StringLength(150)]
+        public string? Relationship { get; set; }
+
+        public DateOnly? Birthday { get; set; }
+
+        [StringLength(2000)]
+        public string? Notes { get; set; }
+    }
+}

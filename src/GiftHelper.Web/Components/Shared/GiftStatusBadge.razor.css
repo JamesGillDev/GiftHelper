@@ -1,0 +1,44 @@
+.gift-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.status-idea {
+    color: #2f5f94;
+    background: #e6f0fb;
+}
+
+.status-researching {
+    color: #5f5d1f;
+    background: #f6f4db;
+}
+
+.status-purchased {
+    color: #1b5f3a;
+    background: #dff6e8;
+}
+
+.status-wrapped {
+    color: #6f4a21;
+    background: #faebd9;
+}
+
+.status-shipped {
+    color: #6d3e76;
+    background: #f2e4f6;
+}
+
+.status-given {
+    color: #27525a;
+    background: #dff0f3;
+}
+
+.status-archived {
+    color: #5e6662;
+    background: #e8ecea;
+}
