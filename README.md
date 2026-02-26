@@ -1,15 +1,25 @@
-# Gift Helper App (v1)
+# Gift Helper App (v1.2.0)
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-purple)](https://dotnet.microsoft.com/)
 [![Blazor](https://img.shields.io/badge/Blazor-Web_App-blue)](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 [![License](https://img.shields.io/badge/License-BLS%201.1-blue.svg)](./LICENSE.md)
+[![Release](https://img.shields.io/badge/Release-v1.2.0-success)](https://github.com/JamesGillDev/GiftHelper/releases)
 
 ## Project Card
 **Gift Helper App (In Progress / Planned)**
 - Tags/Stack: C#/.NET, UX-first, Recommendation Engine, Local-first
-- Description: "Guided gift-finder for people who don’t know what to buy. The app asks a short series of questions (relationship, budget, interests, constraints) and generates personalized gift suggestions with reasoning and links."
-- Links:
+- Description: "Guided gift-finder for people who do not know what to buy. The app asks a short series of questions (relationship, budget, interests, constraints) and generates personalized gift suggestions with reasoning and links."
 - Repo: https://github.com/JamesGillDev/GiftHelper
+
+## Release Versions
+| Version | Date | Public Iteration |
+| --- | --- | --- |
+| `v1.0.0` | 2026-02-25 | Initial public release |
+| `v1.0.1` | 2026-02-25 | README and release artifact iteration |
+| `v1.1.0` | 2026-02-25 | Deployment iteration (Render + Docker + SQLite persistence) |
+| `v1.2.0` | 2026-02-25 | Gift Finder iteration (local suggestion service and shortlist enhancements) |
+
+Full change details are tracked in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Pivot Summary
 Gift Helper has been pivoted from a pure tracker into a **Gift Finder** app.
@@ -72,6 +82,16 @@ Saved Finder suggestions are stored in existing `GiftIdea` records with added fi
    ```powershell
    dotnet run --project src/GiftHelper.Web
    ```
+
+## GitHub Release Workflow
+Use annotated tags for each iteration so version history is visible on GitHub:
+
+```powershell
+git tag -a v1.2.0 -m "Gift Helper App v1.2.0"
+git push origin v1.2.0
+```
+
+For the next release iteration, increment SemVer and repeat (example: `v1.2.1`, `v1.3.0`).
 
 ## License
 This project is licensed under the **Business Source License 1.1 (BLS)**.

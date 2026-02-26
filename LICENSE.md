@@ -6,7 +6,7 @@ Parameters
 
 Licensor: James Gill
 
-Licensed Work: Gift Helper App (v1)
+Licensed Work: Gift Helper App (v1.2.0)
 The Licensed Work is (c) 2026 James Gill
 
 Additional Use Grant: None
