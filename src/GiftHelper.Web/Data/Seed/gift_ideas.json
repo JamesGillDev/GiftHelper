@@ -1,0 +1,2258 @@
+[
+  {
+    "id": "pottery-class-pass",
+    "title": "Pottery Class Pass",
+    "category": "Experiences",
+    "minPrice": 45.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "art",
+      "experience",
+      "crafts",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "sentimental",
+      "funny"
+    ],
+    "constraintTags": [],
+    "notes": "Hands-on class that creates a shared memory.",
+    "storeSearchTerms": "pottery class pass gift"
+  },
+  {
+    "id": "cooking-workshop-ticket",
+    "title": "Cooking Workshop Ticket",
+    "category": "Experiences",
+    "minPrice": 35.0,
+    "maxPrice": 160.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "cooking",
+      "learning",
+      "experience",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "experience"
+    ],
+    "constraintTags": [
+      "food"
+    ],
+    "notes": "Interactive workshop for people who enjoy learning by doing.",
+    "storeSearchTerms": "cooking workshop ticket gift"
+  },
+  {
+    "id": "botanical-garden-membership",
+    "title": "Botanical Garden Membership",
+    "category": "Experiences",
+    "minPrice": 55.0,
+    "maxPrice": 140.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "outdoors",
+      "nature",
+      "wellness",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "sentimental",
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "A year of low-pressure outings and fresh-air time.",
+    "storeSearchTerms": "botanical garden membership gift"
+  },
+  {
+    "id": "local-museum-membership",
+    "title": "Local Museum Membership",
+    "category": "Experiences",
+    "minPrice": 40.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "history",
+      "art",
+      "learning",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Recurring access supports curiosity throughout the year.",
+    "storeSearchTerms": "museum membership gift"
+  },
+  {
+    "id": "weekend-cabin-getaway-voucher",
+    "title": "Weekend Cabin Getaway Voucher",
+    "category": "Experiences",
+    "minPrice": 120.0,
+    "maxPrice": 420.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "travel",
+      "outdoors",
+      "relaxation",
+      "age-adult"
+    ],
+    "styleTags": [
+      "luxury",
+      "experience",
+      "sentimental"
+    ],
+    "constraintTags": [],
+    "notes": "A high-impact experience with quality time built in.",
+    "storeSearchTerms": "cabin getaway voucher gift"
+  },
+  {
+    "id": "escape-room-duo-pass",
+    "title": "Escape Room Duo Pass",
+    "category": "Experiences",
+    "minPrice": 40.0,
+    "maxPrice": 110.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "gaming",
+      "puzzles",
+      "friends",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "funny",
+      "experience"
+    ],
+    "constraintTags": [],
+    "notes": "Collaborative challenge that feels social and memorable.",
+    "storeSearchTerms": "escape room duo pass gift"
+  },
+  {
+    "id": "live-concert-ticket-pack",
+    "title": "Live Concert Ticket Pack",
+    "category": "Experiences",
+    "minPrice": 60.0,
+    "maxPrice": 260.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "music",
+      "nightlife",
+      "experience",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "luxury",
+      "funny"
+    ],
+    "constraintTags": [],
+    "notes": "Great for shared excitement and anticipation.",
+    "storeSearchTerms": "live concert ticket package gift"
+  },
+  {
+    "id": "kayaking-lesson-package",
+    "title": "Kayaking Lesson Package",
+    "category": "Experiences",
+    "minPrice": 50.0,
+    "maxPrice": 190.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "outdoors",
+      "fitness",
+      "water-sports",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Active gift for someone who likes trying new activities.",
+    "storeSearchTerms": "kayaking lesson package gift"
+  },
+  {
+    "id": "stand-up-comedy-night-tickets",
+    "title": "Stand-Up Comedy Night Tickets",
+    "category": "Experiences",
+    "minPrice": 30.0,
+    "maxPrice": 140.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "comedy",
+      "fun",
+      "nightlife",
+      "age-adult"
+    ],
+    "styleTags": [
+      "funny",
+      "experience"
+    ],
+    "constraintTags": [],
+    "notes": "Low-friction night out with built-in entertainment.",
+    "storeSearchTerms": "comedy night tickets gift"
+  },
+  {
+    "id": "guided-city-food-tour",
+    "title": "Guided City Food Tour",
+    "category": "Experiences",
+    "minPrice": 65.0,
+    "maxPrice": 220.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "food",
+      "travel",
+      "culture",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "sentimental",
+      "luxury"
+    ],
+    "constraintTags": [
+      "food"
+    ],
+    "notes": "Combines exploration and tasting in one outing.",
+    "storeSearchTerms": "city food tour ticket gift"
+  },
+  {
+    "id": "portable-bluetooth-speaker",
+    "title": "Portable Bluetooth Speaker",
+    "category": "Tech",
+    "minPrice": 30.0,
+    "maxPrice": 210.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "music",
+      "tech",
+      "travel",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "funny"
+    ],
+    "constraintTags": [],
+    "notes": "Useful for everyday listening at home or on the go.",
+    "storeSearchTerms": "portable bluetooth speaker gift"
+  },
+  {
+    "id": "e-reader-device",
+    "title": "E-Reader Device",
+    "category": "Tech",
+    "minPrice": 90.0,
+    "maxPrice": 320.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "books",
+      "learning",
+      "travel",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [],
+    "notes": "Great fit for readers who want a portable library.",
+    "storeSearchTerms": "e-reader device gift"
+  },
+  {
+    "id": "wireless-charging-stand",
+    "title": "Wireless Charging Stand",
+    "category": "Tech",
+    "minPrice": 20.0,
+    "maxPrice": 85.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "tech",
+      "productivity",
+      "work",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Small desk upgrade that solves a daily pain point.",
+    "storeSearchTerms": "wireless charging stand gift"
+  },
+  {
+    "id": "mechanical-keyboard",
+    "title": "Mechanical Keyboard",
+    "category": "Tech",
+    "minPrice": 55.0,
+    "maxPrice": 210.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "tech",
+      "gaming",
+      "work",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [],
+    "notes": "Improves typing feel and daily workstation comfort.",
+    "storeSearchTerms": "mechanical keyboard gift"
+  },
+  {
+    "id": "smart-home-starter-kit",
+    "title": "Smart Home Starter Kit",
+    "category": "Tech",
+    "minPrice": 80.0,
+    "maxPrice": 350.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "tech",
+      "home",
+      "automation",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Adds convenient routines for lights and devices.",
+    "storeSearchTerms": "smart home starter kit gift"
+  },
+  {
+    "id": "mini-photo-printer",
+    "title": "Mini Photo Printer",
+    "category": "Tech",
+    "minPrice": 65.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "photography",
+      "travel",
+      "scrapbooking",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "funny"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Turns phone photos into quick keepsakes.",
+    "storeSearchTerms": "mini photo printer gift"
+  },
+  {
+    "id": "digital-note-tablet",
+    "title": "Digital Note Tablet",
+    "category": "Tech",
+    "minPrice": 120.0,
+    "maxPrice": 420.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "productivity",
+      "work",
+      "learning",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [],
+    "notes": "Paper-like writing with cloud-friendly organization.",
+    "storeSearchTerms": "digital note tablet gift"
+  },
+  {
+    "id": "ergonomic-mouse-and-mat-set",
+    "title": "Ergonomic Mouse and Mat Set",
+    "category": "Tech",
+    "minPrice": 35.0,
+    "maxPrice": 130.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "work",
+      "productivity",
+      "tech",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Comfort-focused gift for someone at a desk often.",
+    "storeSearchTerms": "ergonomic mouse and mat gift"
+  },
+  {
+    "id": "webcam-lighting-kit",
+    "title": "Webcam Lighting Kit",
+    "category": "Tech",
+    "minPrice": 25.0,
+    "maxPrice": 95.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "content-creation",
+      "work",
+      "tech",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Simple way to improve video calls and recordings.",
+    "storeSearchTerms": "webcam lighting kit gift"
+  },
+  {
+    "id": "fitness-smartwatch-band-bundle",
+    "title": "Fitness Smartwatch Band Bundle",
+    "category": "Tech",
+    "minPrice": 25.0,
+    "maxPrice": 140.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "fitness",
+      "tech",
+      "health",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "funny"
+    ],
+    "constraintTags": [],
+    "notes": "Accessory-focused upgrade for active routines.",
+    "storeSearchTerms": "smartwatch band bundle gift"
+  },
+  {
+    "id": "cozy-weighted-blanket",
+    "title": "Cozy Weighted Blanket",
+    "category": "Home",
+    "minPrice": 40.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "home",
+      "wellness",
+      "relaxation",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Comfort item for winding down after busy days.",
+    "storeSearchTerms": "weighted blanket gift"
+  },
+  {
+    "id": "artisan-tea-sampler-box",
+    "title": "Artisan Tea Sampler Box",
+    "category": "Home",
+    "minPrice": 25.0,
+    "maxPrice": 95.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "tea",
+      "wellness",
+      "home",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "practical"
+    ],
+    "constraintTags": [
+      "food"
+    ],
+    "notes": "Easy ritual gift with multiple flavor options.",
+    "storeSearchTerms": "tea sampler box gift"
+  },
+  {
+    "id": "indoor-plant-starter-set",
+    "title": "Indoor Plant Starter Set",
+    "category": "Home",
+    "minPrice": 30.0,
+    "maxPrice": 120.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "home",
+      "nature",
+      "wellness",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "sentimental"
+    ],
+    "constraintTags": [
+      "clutter",
+      "pet-unfriendly"
+    ],
+    "notes": "Adds life to a space with beginner-friendly care.",
+    "storeSearchTerms": "indoor plant starter set gift"
+  },
+  {
+    "id": "minimal-desk-organizer",
+    "title": "Minimal Desk Organizer",
+    "category": "Home",
+    "minPrice": 18.0,
+    "maxPrice": 70.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "productivity",
+      "home",
+      "work",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Useful for reducing daily desk mess.",
+    "storeSearchTerms": "minimal desk organizer gift"
+  },
+  {
+    "id": "scented-candle-trio",
+    "title": "Scented Candle Trio",
+    "category": "Home",
+    "minPrice": 28.0,
+    "maxPrice": 110.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "home",
+      "wellness",
+      "relaxation",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "luxury"
+    ],
+    "constraintTags": [
+      "fragrance",
+      "clutter"
+    ],
+    "notes": "Creates atmosphere for downtime and self-care.",
+    "storeSearchTerms": "scented candle set gift"
+  },
+  {
+    "id": "memory-foam-pillow-set",
+    "title": "Memory Foam Pillow Set",
+    "category": "Home",
+    "minPrice": 35.0,
+    "maxPrice": 150.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "sleep",
+      "wellness",
+      "home",
+      "age-adult",
+      "age-senior"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Sleep-quality upgrade with practical daily impact.",
+    "storeSearchTerms": "memory foam pillow gift"
+  },
+  {
+    "id": "kitchen-knife-starter-set",
+    "title": "Kitchen Knife Starter Set",
+    "category": "Home",
+    "minPrice": 60.0,
+    "maxPrice": 240.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "cooking",
+      "home",
+      "practical",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Practical kitchen upgrade for frequent cooks.",
+    "storeSearchTerms": "kitchen knife set gift"
+  },
+  {
+    "id": "premium-bath-towel-bundle",
+    "title": "Premium Bath Towel Bundle",
+    "category": "Home",
+    "minPrice": 45.0,
+    "maxPrice": 170.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "home",
+      "wellness",
+      "practical",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Everyday comfort gift with immediate use.",
+    "storeSearchTerms": "premium bath towel bundle gift"
+  },
+  {
+    "id": "compact-air-fryer",
+    "title": "Compact Air Fryer",
+    "category": "Home",
+    "minPrice": 55.0,
+    "maxPrice": 220.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "cooking",
+      "home",
+      "health",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Useful appliance for quick weekday meals.",
+    "storeSearchTerms": "compact air fryer gift"
+  },
+  {
+    "id": "custom-doormat",
+    "title": "Custom Doormat",
+    "category": "Home",
+    "minPrice": 25.0,
+    "maxPrice": 95.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "home",
+      "decor",
+      "fun",
+      "age-adult"
+    ],
+    "styleTags": [
+      "funny",
+      "sentimental"
+    ],
+    "constraintTags": [
+      "custom-made",
+      "slow-ship",
+      "clutter"
+    ],
+    "notes": "Personalized decor piece with playful personality.",
+    "storeSearchTerms": "custom doormat gift"
+  },
+  {
+    "id": "watercolor-paint-kit",
+    "title": "Watercolor Paint Kit",
+    "category": "Hobbies",
+    "minPrice": 22.0,
+    "maxPrice": 90.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "art",
+      "crafts",
+      "relaxation",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "funny",
+      "sentimental"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Creative outlet for stress relief and fun.",
+    "storeSearchTerms": "watercolor paint kit gift"
+  },
+  {
+    "id": "beginner-guitar-lesson-bundle",
+    "title": "Beginner Guitar Lesson Bundle",
+    "category": "Hobbies",
+    "minPrice": 45.0,
+    "maxPrice": 220.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "music",
+      "learning",
+      "hobbies",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Supports a skill-building hobby with momentum.",
+    "storeSearchTerms": "guitar lesson bundle gift"
+  },
+  {
+    "id": "puzzle-subscription-box",
+    "title": "Puzzle Subscription Box",
+    "category": "Hobbies",
+    "minPrice": 25.0,
+    "maxPrice": 140.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "puzzles",
+      "gaming",
+      "family",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "funny",
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Recurring puzzle challenge that stays engaging.",
+    "storeSearchTerms": "puzzle subscription box gift"
+  },
+  {
+    "id": "diy-candle-making-kit",
+    "title": "DIY Candle Making Kit",
+    "category": "Hobbies",
+    "minPrice": 28.0,
+    "maxPrice": 120.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "crafts",
+      "home",
+      "wellness",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "funny",
+      "sentimental"
+    ],
+    "constraintTags": [
+      "clutter",
+      "fragrance"
+    ],
+    "notes": "Hands-on project gift for creative evenings.",
+    "storeSearchTerms": "diy candle making kit gift"
+  },
+  {
+    "id": "running-race-entry-pass",
+    "title": "Running Race Entry Pass",
+    "category": "Hobbies",
+    "minPrice": 30.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "fitness",
+      "outdoors",
+      "health",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Motivating gift tied to a concrete goal.",
+    "storeSearchTerms": "running race entry pass gift"
+  },
+  {
+    "id": "photography-walk-workshop",
+    "title": "Photography Walk Workshop",
+    "category": "Hobbies",
+    "minPrice": 40.0,
+    "maxPrice": 160.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "photography",
+      "travel",
+      "learning",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "sentimental"
+    ],
+    "constraintTags": [],
+    "notes": "Combines learning and local exploration.",
+    "storeSearchTerms": "photography workshop gift"
+  },
+  {
+    "id": "gardening-tool-pouch",
+    "title": "Gardening Tool Pouch",
+    "category": "Hobbies",
+    "minPrice": 20.0,
+    "maxPrice": 85.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "gardening",
+      "outdoors",
+      "home",
+      "age-adult",
+      "age-senior"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Portable set for someone who loves plants and yard work.",
+    "storeSearchTerms": "gardening tool pouch gift"
+  },
+  {
+    "id": "knitting-starter-kit",
+    "title": "Knitting Starter Kit",
+    "category": "Hobbies",
+    "minPrice": 18.0,
+    "maxPrice": 75.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "crafts",
+      "relaxation",
+      "learning",
+      "age-teen",
+      "age-adult",
+      "age-senior"
+    ],
+    "styleTags": [
+      "sentimental",
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Beginner-friendly kit for a calming hobby.",
+    "storeSearchTerms": "knitting starter kit gift"
+  },
+  {
+    "id": "chess-improvement-course",
+    "title": "Chess Improvement Course",
+    "category": "Hobbies",
+    "minPrice": 20.0,
+    "maxPrice": 130.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "chess",
+      "strategy",
+      "learning",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "experience"
+    ],
+    "constraintTags": [],
+    "notes": "Structured lessons for someone who likes strategy.",
+    "storeSearchTerms": "chess improvement course gift"
+  },
+  {
+    "id": "creative-writing-class",
+    "title": "Creative Writing Class",
+    "category": "Hobbies",
+    "minPrice": 35.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "writing",
+      "books",
+      "learning",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "experience",
+      "sentimental"
+    ],
+    "constraintTags": [],
+    "notes": "Supports expressive skills and reflective creativity.",
+    "storeSearchTerms": "creative writing class gift"
+  },
+  {
+    "id": "custom-star-map-print",
+    "title": "Custom Star Map Print",
+    "category": "Sentimental",
+    "minPrice": 40.0,
+    "maxPrice": 210.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "sentimental",
+      "home",
+      "decor",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "luxury"
+    ],
+    "constraintTags": [
+      "custom-made",
+      "slow-ship",
+      "clutter"
+    ],
+    "notes": "Personalized memento tied to a meaningful date.",
+    "storeSearchTerms": "custom star map print gift"
+  },
+  {
+    "id": "voice-message-keepsake",
+    "title": "Voice Message Keepsake",
+    "category": "Sentimental",
+    "minPrice": 35.0,
+    "maxPrice": 150.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "sentimental",
+      "family",
+      "memory",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental"
+    ],
+    "constraintTags": [
+      "custom-made",
+      "slow-ship"
+    ],
+    "notes": "Captures a meaningful message in a lasting format.",
+    "storeSearchTerms": "voice message keepsake gift"
+  },
+  {
+    "id": "personalized-photo-book",
+    "title": "Personalized Photo Book",
+    "category": "Sentimental",
+    "minPrice": 30.0,
+    "maxPrice": 190.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "family",
+      "photography",
+      "sentimental",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental"
+    ],
+    "constraintTags": [
+      "custom-made",
+      "slow-ship",
+      "clutter"
+    ],
+    "notes": "Curated highlight reel of shared moments.",
+    "storeSearchTerms": "personalized photo book gift"
+  },
+  {
+    "id": "engraved-keychain-set",
+    "title": "Engraved Keychain Set",
+    "category": "Sentimental",
+    "minPrice": 18.0,
+    "maxPrice": 85.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "sentimental",
+      "practical",
+      "memory",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "practical"
+    ],
+    "constraintTags": [
+      "custom-made",
+      "slow-ship"
+    ],
+    "notes": "Small daily carry item with personal meaning.",
+    "storeSearchTerms": "engraved keychain set gift"
+  },
+  {
+    "id": "handwritten-letter-kit",
+    "title": "Handwritten Letter Kit",
+    "category": "Sentimental",
+    "minPrice": 15.0,
+    "maxPrice": 60.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "writing",
+      "sentimental",
+      "books",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Encourages thoughtful communication and personal touch.",
+    "storeSearchTerms": "handwritten letter kit gift"
+  },
+  {
+    "id": "family-recipe-memory-cards",
+    "title": "Family Recipe Memory Cards",
+    "category": "Sentimental",
+    "minPrice": 20.0,
+    "maxPrice": 75.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "cooking",
+      "family",
+      "sentimental",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Preserves family traditions in a usable format.",
+    "storeSearchTerms": "recipe memory cards gift"
+  },
+  {
+    "id": "custom-song-dedication-video",
+    "title": "Custom Song Dedication Video",
+    "category": "Sentimental",
+    "minPrice": 45.0,
+    "maxPrice": 220.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "music",
+      "sentimental",
+      "memory",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "experience"
+    ],
+    "constraintTags": [
+      "custom-made",
+      "slow-ship"
+    ],
+    "notes": "Emotion-forward gift that feels highly personal.",
+    "storeSearchTerms": "custom song dedication gift"
+  },
+  {
+    "id": "milestone-scrapbook-set",
+    "title": "Milestone Scrapbook Set",
+    "category": "Sentimental",
+    "minPrice": 25.0,
+    "maxPrice": 120.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "family",
+      "crafts",
+      "sentimental",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "funny"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Interactive keepsake for capturing milestones.",
+    "storeSearchTerms": "milestone scrapbook set gift"
+  },
+  {
+    "id": "memory-jar-prompt-cards",
+    "title": "Memory Jar Prompt Cards",
+    "category": "Sentimental",
+    "minPrice": 18.0,
+    "maxPrice": 65.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "family",
+      "sentimental",
+      "reflection",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "funny"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Prompts meaningful memories and conversations.",
+    "storeSearchTerms": "memory jar prompt cards gift"
+  },
+  {
+    "id": "donation-in-their-name",
+    "title": "Donation in Their Name",
+    "category": "Sentimental",
+    "minPrice": 20.0,
+    "maxPrice": 500.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "philanthropy",
+      "sentimental",
+      "community",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "sentimental",
+      "practical",
+      "experience"
+    ],
+    "constraintTags": [],
+    "notes": "Meaning-focused option for values-driven recipients.",
+    "storeSearchTerms": "charity donation in their name gift"
+  },
+  {
+    "id": "grocery-delivery-gift-card",
+    "title": "Grocery Delivery Gift Card",
+    "category": "Practical",
+    "minPrice": 25.0,
+    "maxPrice": 250.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "practical",
+      "home",
+      "family",
+      "age-adult",
+      "age-senior"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Removes friction from weekly essentials.",
+    "storeSearchTerms": "grocery delivery gift card"
+  },
+  {
+    "id": "meal-prep-container-set",
+    "title": "Meal Prep Container Set",
+    "category": "Practical",
+    "minPrice": 18.0,
+    "maxPrice": 70.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "health",
+      "cooking",
+      "practical",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Useful for organized meals and better routines.",
+    "storeSearchTerms": "meal prep container set gift"
+  },
+  {
+    "id": "transit-pass-reload-card",
+    "title": "Transit Pass Reload Card",
+    "category": "Practical",
+    "minPrice": 20.0,
+    "maxPrice": 200.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "travel",
+      "work",
+      "practical",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Directly offsets routine commuting costs.",
+    "storeSearchTerms": "transit pass gift card"
+  },
+  {
+    "id": "car-detailing-voucher",
+    "title": "Car Detailing Voucher",
+    "category": "Practical",
+    "minPrice": 40.0,
+    "maxPrice": 260.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "cars",
+      "practical",
+      "maintenance",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [],
+    "notes": "A useful service gift that saves time and effort.",
+    "storeSearchTerms": "car detailing voucher gift"
+  },
+  {
+    "id": "home-cleaning-service-credits",
+    "title": "Home Cleaning Service Credits",
+    "category": "Practical",
+    "minPrice": 60.0,
+    "maxPrice": 320.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "home",
+      "practical",
+      "wellness",
+      "age-adult",
+      "age-senior"
+    ],
+    "styleTags": [
+      "practical",
+      "luxury"
+    ],
+    "constraintTags": [],
+    "notes": "Time-saving gift with immediate quality-of-life value.",
+    "storeSearchTerms": "home cleaning service gift credits"
+  },
+  {
+    "id": "language-learning-subscription",
+    "title": "Language Learning Subscription",
+    "category": "Practical",
+    "minPrice": 20.0,
+    "maxPrice": 220.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "learning",
+      "travel",
+      "books",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "experience"
+    ],
+    "constraintTags": [],
+    "notes": "Helps build a practical new skill over time.",
+    "storeSearchTerms": "language learning subscription gift"
+  },
+  {
+    "id": "premium-calendar-planner",
+    "title": "Premium Calendar Planner",
+    "category": "Practical",
+    "minPrice": 15.0,
+    "maxPrice": 85.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "productivity",
+      "work",
+      "planning",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Supports planning goals with lightweight structure.",
+    "storeSearchTerms": "premium planner gift"
+  },
+  {
+    "id": "laptop-backpack",
+    "title": "Laptop Backpack",
+    "category": "Practical",
+    "minPrice": 35.0,
+    "maxPrice": 180.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "travel",
+      "work",
+      "practical",
+      "age-teen",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [],
+    "notes": "Daily utility gift for commuting and organization.",
+    "storeSearchTerms": "laptop backpack gift"
+  },
+  {
+    "id": "tool-library-membership",
+    "title": "Tool Library Membership",
+    "category": "Practical",
+    "minPrice": 30.0,
+    "maxPrice": 190.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "diy",
+      "home",
+      "practical",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical",
+      "experience"
+    ],
+    "constraintTags": [],
+    "notes": "Access-over-ownership gift that avoids extra clutter.",
+    "storeSearchTerms": "tool library membership gift"
+  },
+  {
+    "id": "emergency-roadside-kit",
+    "title": "Emergency Roadside Kit",
+    "category": "Practical",
+    "minPrice": 28.0,
+    "maxPrice": 140.0,
+    "relationshipTags": [
+      "spouse-partner",
+      "friend",
+      "parent",
+      "coworker",
+      "sibling",
+      "other"
+    ],
+    "occasionTags": [
+      "birthday",
+      "anniversary",
+      "christmas-holiday",
+      "just-because",
+      "graduation",
+      "other"
+    ],
+    "interestTags": [
+      "cars",
+      "safety",
+      "practical",
+      "age-adult"
+    ],
+    "styleTags": [
+      "practical"
+    ],
+    "constraintTags": [
+      "clutter"
+    ],
+    "notes": "Preparedness-focused gift with clear everyday value.",
+    "storeSearchTerms": "emergency roadside kit gift"
+  }
+]

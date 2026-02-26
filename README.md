@@ -4,37 +4,67 @@
 [![Blazor](https://img.shields.io/badge/Blazor-Web_App-blue)](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 [![License](https://img.shields.io/badge/License-BLS%201.1-blue.svg)](./LICENSE.md)
 
-Gift Helper is a local-first web app for tracking gift ideas by recipient and occasion, with budgets, priorities, and statuses.
+## Project Card
+**Gift Helper App (In Progress / Planned)**
+- Tags/Stack: C#/.NET, UX-first, Recommendation Engine, Local-first
+- Description: "Guided gift-finder for people who don’t know what to buy. The app asks a short series of questions (relationship, budget, interests, constraints) and generates personalized gift suggestions with reasoning and links."
+- Links:
+- Repo: https://github.com/JamesGillDev/GiftHelper
 
-## What It Includes
-- Dashboard with upcoming occasions, gift status summary, and quick-add gift form
-- Recipients page with full CRUD and name search
-- Recipient details page with recipient profile, upcoming occasions, and recipient-scoped gift filters
-- Occasions page with full CRUD and recurring yearly days-until projection
-- Gifts page with full CRUD and global filters (recipient, status, priority, search)
+## Pivot Summary
+Gift Helper has been pivoted from a pure tracker into a **Gift Finder** app.
 
-## Tech Stack
-- .NET 8 (LTS)
-- Blazor Web App (Interactive Server render mode)
-- EF Core 8 + SQLite
-- DataAnnotations validation
+- Primary experience: guided gift discovery wizard + ranked suggestions
+- Existing tracker functionality is preserved and repositioned as **Shortlist**
+- Saving from Finder writes directly to the existing persisted `GiftIdeas` data
 
-## Architecture
-- `src/GiftHelper.Domain`: entities and enums
-- `src/GiftHelper.Data`: `GiftHelperDbContext`, migrations, seed initializer, service layer
-- `src/GiftHelper.Web`: UI pages/components, DI, startup migration logic
+## MVP Flow
+1. Start a new Gift Search in `Gift Finder`
+2. Answer guided questions:
+   - Relationship
+   - Occasion
+   - Budget min/max
+   - Interests (multi-select + free text)
+   - Constraints / deal-breakers
+   - Style
+   - Shipping timeline
+   - Age range (optional)
+   - Already has everything? (yes/no)
+3. View ranked suggestions (top 20)
+4. Save suggestions to `Shortlist`
+5. Optionally mark saved items as purchased later
 
-## Run Locally
-1. Restore and build:
+## Rule-Based Engine (Offline v1)
+- Seed file: `src/GiftHelper.Web/Data/Seed/gift_ideas.json`
+- Curated offline catalog (60 items)
+- No external APIs
+- Transparent scoring:
+  - Relationship exact/partial: +30 / +15
+  - Occasion exact/partial: +20 / +10
+  - Interest matches: +8 each (cap +40)
+  - Style match: +15
+  - Budget fit: +25 in range, +10 if <=10% over, else -20
+  - Constraint conflict: hard reject
+  - Urgent shipping: penalize custom/slow-ship ideas
+
+## Shortlist Persistence
+Saved Finder suggestions are stored in existing `GiftIdea` records with added fields:
+- `EstimatedMinPrice`
+- `EstimatedMaxPrice`
+- `Tags`
+- `SeedId`
+
+## Local Run
+1. Restore dependencies:
    ```powershell
    dotnet restore GiftHelper.sln
-   dotnet build GiftHelper.sln
-   ```
-2. Restore local tools:
-   ```powershell
    dotnet tool restore
    ```
-3. Apply migration:
+2. Build:
+   ```powershell
+   dotnet build GiftHelper.sln
+   ```
+3. Apply migrations:
    ```powershell
    dotnet dotnet-ef database update --project src/GiftHelper.Data --startup-project src/GiftHelper.Web
    ```
@@ -43,52 +73,6 @@ Gift Helper is a local-first web app for tracking gift ideas by recipient and oc
    dotnet run --project src/GiftHelper.Web
    ```
 
-## Previous Azure Deployment (App Service)
-Before switching to Render, the app was intended to be deployed as an **Azure App Service** web app.
-
-- Create an **Azure App Service (Linux, .NET 8)** and App Service Plan.
-- Deploy from GitHub (or zip deploy) using `dotnet publish` output for `src/GiftHelper.Web`.
-- Set app setting `ASPNETCORE_ENVIRONMENT=Production`.
-- Set app setting `ConnectionStrings__DefaultConnection=Data Source=/home/gifthelper.db`.
-- Enable WebSockets (recommended for Blazor Interactive Server).
-- Run as a single instance when using SQLite (avoid multi-instance writes on one SQLite file).
-- On startup, EF Core migrations are applied automatically by the app.
-
-### Azure note
-- Prior Azure deployment attempts for this project were blocked when the subscription was read-only/disabled for write operations.
-
-## Deploy Without Azure (Render)
-This repo includes a Docker deployment path for Render (`Dockerfile` + `render.yaml`).
-
-1. Push this repo to GitHub.
-2. In Render, choose **Blueprint** deployment and select this repo.
-3. Render will read `render.yaml` and create:
-   - one web service (`gifthelper`)
-   - one persistent disk mounted at `/var/data` for SQLite
-4. Deploy. The app auto-runs EF migrations on startup.
-
-### Important Render notes
-- The provided `render.yaml` uses `plan: starter` so the SQLite database can persist on disk.
-- Free plans do not support persistent disks, so data can be lost on restarts/redeploys.
-- Database location in production is `Data Source=/var/data/gifthelper.db`.
-
-## Public Project Links
-- Repository: https://github.com/JamesGillDev/GiftHelper
-- Latest Release: https://github.com/JamesGillDev/GiftHelper/releases/tag/v1.0.0
-- Release Build (ZIP): https://github.com/JamesGillDev/GiftHelper/releases/download/v1.0.0/GiftHelper.Web.v1.0.0.zip
-
 ## License
 This project is licensed under the **Business Source License 1.1 (BLS)**.
 See [LICENSE.md](./LICENSE.md) for full terms.
-
-- Current use grant: copy, modify, and redistribute for non-production use
-- Additional Use Grant: None
-- Change Date: 2029-01-01
-- Change License: Apache License 2.0
-
-## Roadmap
-- Authentication and multi-user isolation
-- Tags and richer categorization
-- Cloud sync and backup options
-- Mobile companion app
-- AI gift recommendations

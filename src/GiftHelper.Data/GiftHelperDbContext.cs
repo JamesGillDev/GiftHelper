@@ -37,7 +37,12 @@ public class GiftHelperDbContext(DbContextOptions<GiftHelperDbContext> options) 
             entity.Property(x => x.Title).IsRequired().HasMaxLength(200);
             entity.Property(x => x.PriceEstimate).HasPrecision(18, 2);
             entity.Property(x => x.PricePaid).HasPrecision(18, 2);
+            entity.Property(x => x.EstimatedMinPrice).HasPrecision(18, 2);
+            entity.Property(x => x.EstimatedMaxPrice).HasPrecision(18, 2);
+            entity.Property(x => x.Tags).HasMaxLength(500);
+            entity.Property(x => x.SeedId).HasMaxLength(120);
             entity.HasIndex(x => x.Status);
+            entity.HasIndex(x => x.SeedId);
             entity
                 .HasOne(x => x.Recipient)
                 .WithMany(x => x.GiftIdeas)

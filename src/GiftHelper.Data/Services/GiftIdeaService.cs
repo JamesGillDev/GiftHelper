@@ -65,6 +65,20 @@ public class GiftIdeaService(GiftHelperDbContext dbContext)
             .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
+    public async Task<bool> ExistsBySeedIdAsync(string seedId, CancellationToken cancellationToken = default)
+    {
+        if (string.IsNullOrWhiteSpace(seedId))
+        {
+            return false;
+        }
+
+        var normalizedSeedId = seedId.Trim();
+
+        return await dbContext.GiftIdeas
+            .AsNoTracking()
+            .AnyAsync(x => x.SeedId == normalizedSeedId, cancellationToken);
+    }
+
     public async Task<GiftIdea> CreateAsync(GiftIdea giftIdea, CancellationToken cancellationToken = default)
     {
         dbContext.GiftIdeas.Add(giftIdea);
@@ -93,6 +107,10 @@ public class GiftIdeaService(GiftHelperDbContext dbContext)
         existing.Status = giftIdea.Status;
         existing.Priority = giftIdea.Priority;
         existing.Category = giftIdea.Category;
+        existing.EstimatedMinPrice = giftIdea.EstimatedMinPrice ?? existing.EstimatedMinPrice;
+        existing.EstimatedMaxPrice = giftIdea.EstimatedMaxPrice ?? existing.EstimatedMaxPrice;
+        existing.Tags = giftIdea.Tags ?? existing.Tags;
+        existing.SeedId = giftIdea.SeedId ?? existing.SeedId;
         existing.IsSurprise = giftIdea.IsSurprise;
         existing.PurchasedDateUtc = giftIdea.PurchasedDateUtc;
         existing.Notes = giftIdea.Notes;

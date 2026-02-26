@@ -1,6 +1,7 @@
 using GiftHelper.Data;
 using GiftHelper.Data.Services;
 using GiftHelper.Web.Components;
+using GiftHelper.Web.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<GiftHelperDbContext>(options =>
 builder.Services.AddScoped<RecipientService>();
 builder.Services.AddScoped<OccasionService>();
 builder.Services.AddScoped<GiftIdeaService>();
+builder.Services.AddSingleton<LocalGiftSuggestionService>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

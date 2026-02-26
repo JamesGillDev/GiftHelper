@@ -1,15 +1,16 @@
 @page "/gifts"
+@page "/shortlist"
 @inject GiftIdeaService GiftIdeaService
 @inject RecipientService RecipientService
 @inject OccasionService OccasionService
 
-<PageTitle>Gifts</PageTitle>
+<PageTitle>Shortlist</PageTitle>
 
 <div class="gh-page-header">
-    <h2>Gifts</h2>
-    <button type="button" class="btn btn-primary" @onclick="StartCreate">Add Gift Idea</button>
+    <h2>Shortlist</h2>
+    <button type="button" class="btn btn-primary" @onclick="StartCreate">Add Saved Gift</button>
 </div>
-<p class="gh-subtitle">View and manage all gift ideas across recipients and occasions.</p>
+<p class="gh-subtitle">View and manage saved Gift Finder suggestions and manually tracked gifts.</p>
 
 <section class="gh-card">
     <div class="gh-toolbar">
@@ -59,7 +60,7 @@
 
     @if (_gifts.Count == 0)
     {
-        <p class="gh-muted mb-0">No gifts match the current filters.</p>
+        <p class="gh-muted mb-0">No shortlist items match the current filters.</p>
     }
     else
     {
@@ -72,8 +73,10 @@
                     <th>Status</th>
                     <th>Priority</th>
                     <th>Estimate</th>
+                    <th>Range</th>
                     <th>Paid</th>
                     <th>Surprise</th>
+                    <th>Seed</th>
                     <th></th>
                 </tr>
             </thead>
@@ -87,8 +90,10 @@
                         <td><GiftStatusBadge Status="@gift.Status" /></td>
                         <td>@gift.Priority</td>
                         <td>@(gift.PriceEstimate.HasValue ? gift.PriceEstimate.Value.ToString("C") : "-")</td>
+                        <td>@FormatEstimatedRange(gift)</td>
                         <td>@(gift.PricePaid.HasValue ? gift.PricePaid.Value.ToString("C") : "-")</td>
                         <td>@(gift.IsSurprise ? "Yes" : "No")</td>
+                        <td>@(string.IsNullOrWhiteSpace(gift.SeedId) ? "-" : gift.SeedId)</td>
                         <td class="text-end">
                             <button type="button" class="btn btn-sm btn-outline-secondary me-1" @onclick="() => StartEdit(gift)">Edit</button>
                             <button type="button" class="btn btn-sm btn-outline-danger" @onclick="() => PromptDelete(gift)">Delete</button>
@@ -101,7 +106,7 @@
 </section>
 
 <section class="gh-card mt-3">
-    <h3>@(_isEditing ? "Edit Gift Idea" : "Add Gift Idea")</h3>
+    <h3>@(_isEditing ? "Edit Saved Gift" : "Add Saved Gift")</h3>
 
     @if (!string.IsNullOrWhiteSpace(_feedbackMessage))
     {
@@ -221,8 +226,8 @@
 
 <ConfirmDialog
     IsOpen="_showDeleteDialog"
-    Title="Delete Gift Idea"
-    Message="Delete this gift idea permanently?"
+    Title="Delete Shortlist Item"
+    Message="Delete this saved gift permanently?"
     ConfirmText="Delete"
     OnConfirm="ConfirmDeleteAsync"
     OnCancel="CancelDelete" />
@@ -459,6 +464,18 @@
     private static string? Clean(string? value)
     {
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+
+    private static string FormatEstimatedRange(GiftIdea gift)
+    {
+        if (!gift.EstimatedMinPrice.HasValue || !gift.EstimatedMaxPrice.HasValue)
+        {
+            return "-";
+        }
+
+        return gift.EstimatedMinPrice.Value == gift.EstimatedMaxPrice.Value
+            ? gift.EstimatedMinPrice.Value.ToString("C")
+            : $"{gift.EstimatedMinPrice.Value:C}-{gift.EstimatedMaxPrice.Value:C}";
     }
 
     private static GiftIdeaFormModel CreateNewFormModel()

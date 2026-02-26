@@ -1,0 +1,548 @@
+@page "/"
+@page "/gift-finder"
+@inject LocalGiftSuggestionService SuggestionService
+@inject GiftIdeaService GiftIdeaService
+@inject RecipientService RecipientService
+
+<PageTitle>Gift Finder</PageTitle>
+
+<div class="gh-page-header">
+    <h2>Gift Finder</h2>
+    <button type="button" class="btn btn-outline-secondary" @onclick="StartNewSearch">Start New Gift Search</button>
+</div>
+<p class="gh-subtitle">Guided gift discovery for people who do not know what to buy. Save any result to your Shortlist.</p>
+
+<section class="gh-card">
+    @if (!string.IsNullOrWhiteSpace(_validationMessage))
+    {
+        <div class="alert alert-warning py-2" role="alert">@_validationMessage</div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(_feedbackMessage))
+    {
+        <div class="alert alert-success py-2" role="alert">@_feedbackMessage</div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="gh-pill">Step @(_currentStep + 1) of @_stepTitles.Count</span>
+        <span class="gh-muted">@_stepTitles[_currentStep]</span>
+    </div>
+
+    @switch (_currentStep)
+    {
+        case 0:
+            <div>
+                <label class="form-label" for="relationship">Relationship</label>
+                <InputSelect id="relationship" class="form-select" @bind-Value="_profile.Relationship">
+                    @foreach (var option in RelationshipOptions)
+                    {
+                        <option value="@option.Value">@option.Label</option>
+                    }
+                </InputSelect>
+            </div>
+            break;
+
+        case 1:
+            <div>
+                <label class="form-label" for="occasion">Occasion</label>
+                <InputSelect id="occasion" class="form-select" @bind-Value="_profile.Occasion">
+                    @foreach (var option in OccasionOptions)
+                    {
+                        <option value="@option.Value">@option.Label</option>
+                    }
+                </InputSelect>
+            </div>
+            break;
+
+        case 2:
+            <div class="gh-form-grid">
+                <div>
+                    <label class="form-label" for="budgetMin">Budget Min</label>
+                    <InputNumber TValue="decimal?" id="budgetMin" class="form-control" @bind-Value="_profile.BudgetMin" />
+                </div>
+
+                <div>
+                    <label class="form-label" for="budgetMax">Budget Max</label>
+                    <InputNumber TValue="decimal?" id="budgetMax" class="form-control" @bind-Value="_profile.BudgetMax" />
+                </div>
+            </div>
+            break;
+
+        case 3:
+            <div>
+                <label class="form-label">Interests</label>
+                <div class="gh-form-grid">
+                    @foreach (var option in InterestOptions)
+                    {
+                        <div class="form-check">
+                            <input
+                                id="interest-@option.Value"
+                                type="checkbox"
+                                class="form-check-input"
+                                checked="@IsInterestSelected(option.Value)"
+                                @onchange="args => ToggleInterestTag(option.Value, args)" />
+                            <label class="form-check-label" for="interest-@option.Value">@option.Label</label>
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-3">
+                    <label class="form-label" for="interestFreeText">Add details (optional)</label>
+                    <InputText id="interestFreeText" class="form-control" @bind-Value="_profile.InterestFreeText" />
+                </div>
+            </div>
+            break;
+
+        case 4:
+            <div>
+                <label class="form-label" for="constraints">Constraints / Deal-breakers</label>
+                <InputTextArea id="constraints" class="form-control" @bind-Value="_profile.Constraints" />
+            </div>
+            break;
+
+        case 5:
+            <div>
+                <label class="form-label" for="style">Style Preference</label>
+                <InputSelect id="style" class="form-select" @bind-Value="_profile.Style">
+                    @foreach (var option in StyleOptions)
+                    {
+                        <option value="@option.Value">@option.Label</option>
+                    }
+                </InputSelect>
+            </div>
+            break;
+
+        case 6:
+            <div>
+                <label class="form-label" for="timeline">Shipping Timeline</label>
+                <InputSelect id="timeline" class="form-select" @bind-Value="_profile.ShippingTimeline">
+                    @foreach (var option in ShippingTimelineOptions)
+                    {
+                        <option value="@option.Value">@option.Label</option>
+                    }
+                </InputSelect>
+            </div>
+            break;
+
+        case 7:
+            <div>
+                <label class="form-label" for="ageRange">Age Range (optional)</label>
+                <InputSelect id="ageRange" class="form-select" @bind-Value="_profile.AgeRange">
+                    <option value="">Prefer not to say</option>
+                    @foreach (var option in AgeRangeOptions)
+                    {
+                        <option value="@option.Value">@option.Label</option>
+                    }
+                </InputSelect>
+            </div>
+            break;
+
+        case 8:
+            <div>
+                <label class="form-label d-block">Already has everything?</label>
+
+                <InputRadioGroup @bind-Value="_profile.AlreadyHasEverything">
+                    <div class="form-check">
+                        <InputRadio id="alreadyHasEverythingYes" Value="true" class="form-check-input" />
+                        <label class="form-check-label" for="alreadyHasEverythingYes">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <InputRadio id="alreadyHasEverythingNo" Value="false" class="form-check-input" />
+                        <label class="form-check-label" for="alreadyHasEverythingNo">No</label>
+                    </div>
+                </InputRadioGroup>
+            </div>
+            break;
+    }
+
+    <div class="gh-form-actions">
+        <button type="button" class="btn btn-outline-secondary" @onclick="PreviousStep" disabled="@(_currentStep == 0)">Back</button>
+
+        @if (_currentStep < _stepTitles.Count - 1)
+        {
+            <button type="button" class="btn btn-primary" @onclick="NextStep">Next</button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-primary" @onclick="RunSearchAsync" disabled="_isSearching">
+                @(_isSearching ? "Searching..." : "Get Suggestions")
+            </button>
+        }
+    </div>
+</section>
+
+@if (_hasSearched)
+{
+    <section class="gh-card mt-3">
+        <div class="gh-page-header">
+            <h3 class="mb-0">Top Suggestions</h3>
+            <span class="gh-pill">@_suggestions.Count results</span>
+        </div>
+
+        @if (_suggestions.Count == 0)
+        {
+            <p class="gh-muted mb-0">No matching ideas. Adjust constraints or increase budget range and search again.</p>
+        }
+        else
+        {
+            @foreach (var suggestion in _suggestions)
+            {
+                <article class="gh-card mb-3">
+                    <div class="d-flex justify-content-between align-items-start gap-2">
+                        <div>
+                            <h3 class="mb-1">@suggestion.Title</h3>
+                            <p class="gh-muted mb-1">@suggestion.Category</p>
+                        </div>
+                        <span class="gh-pill">Score @suggestion.Score</span>
+                    </div>
+
+                    <p class="mb-1"><strong>Estimated Price:</strong> @FormatPriceRange(suggestion.MinPrice, suggestion.MaxPrice)</p>
+                    <p class="mb-2"><strong>Why it fits:</strong> @suggestion.WhyItFits</p>
+
+                    @if (!string.IsNullOrWhiteSpace(suggestion.MatchedTags))
+                    {
+                        <p class="mb-2"><strong>Matched tags:</strong> @suggestion.MatchedTags</p>
+                    }
+
+                    <div class="gh-form-actions">
+                        <a href="@suggestion.SearchUrl" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary">Search Online</a>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            disabled="@(!_canSaveSuggestions || IsSaved(suggestion.SeedId) || _savingSeeds.Contains(suggestion.SeedId))"
+                            @onclick="() => SaveToShortlistAsync(suggestion)">
+                            @(IsSaved(suggestion.SeedId) ? "Saved" : _savingSeeds.Contains(suggestion.SeedId) ? "Saving..." : "Save to Shortlist")
+                        </button>
+                    </div>
+                </article>
+            }
+
+            <p class="mb-0">
+                Saved gifts appear in <a href="/shortlist">Shortlist</a> where they can be managed or marked as purchased.
+            </p>
+        }
+    </section>
+}
+
+@code {
+    private static readonly List<ChoiceOption> RelationshipOptions =
+    [
+        new("spouse-partner", "Spouse / Partner"),
+        new("friend", "Friend"),
+        new("parent", "Parent"),
+        new("coworker", "Coworker"),
+        new("sibling", "Sibling"),
+        new("other", "Other")
+    ];
+
+    private static readonly List<ChoiceOption> OccasionOptions =
+    [
+        new("birthday", "Birthday"),
+        new("anniversary", "Anniversary"),
+        new("christmas-holiday", "Christmas / Holiday"),
+        new("just-because", "Just Because"),
+        new("graduation", "Graduation"),
+        new("other", "Other")
+    ];
+
+    private static readonly List<ChoiceOption> InterestOptions =
+    [
+        new("tech", "Tech"),
+        new("gaming", "Gaming"),
+        new("cooking", "Cooking"),
+        new("outdoors", "Outdoors"),
+        new("fitness", "Fitness"),
+        new("books", "Books"),
+        new("music", "Music"),
+        new("travel", "Travel"),
+        new("home", "Home"),
+        new("art", "Art"),
+        new("wellness", "Wellness"),
+        new("diy", "DIY"),
+        new("pets", "Pets"),
+        new("food", "Food")
+    ];
+
+    private static readonly List<ChoiceOption> StyleOptions =
+    [
+        new("practical", "Practical"),
+        new("sentimental", "Sentimental"),
+        new("funny", "Funny"),
+        new("luxury", "Luxury"),
+        new("experience", "Experience")
+    ];
+
+    private static readonly List<ChoiceOption> ShippingTimelineOptions =
+    [
+        new("need-fast", "Need it fast"),
+        new("normal", "Normal"),
+        new("no-rush", "No rush")
+    ];
+
+    private static readonly List<ChoiceOption> AgeRangeOptions =
+    [
+        new("child", "Child"),
+        new("teen", "Teen"),
+        new("adult", "Adult"),
+        new("senior", "Senior")
+    ];
+
+    private readonly List<string> _stepTitles =
+    [
+        "Relationship",
+        "Occasion",
+        "Budget Range",
+        "Interests",
+        "Constraints",
+        "Style",
+        "Shipping Timeline",
+        "Age Range",
+        "Already Has Everything"
+    ];
+
+    private GiftSearchProfile _profile = CreateDefaultProfile();
+    private readonly HashSet<string> _savedSeedIds = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<string> _savingSeeds = new(StringComparer.OrdinalIgnoreCase);
+    private List<Recipient> _recipients = [];
+    private List<GiftSuggestion> _suggestions = [];
+
+    private int _currentStep;
+    private bool _isSearching;
+    private bool _hasSearched;
+    private bool _canSaveSuggestions = true;
+    private string? _validationMessage;
+    private string? _feedbackMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _recipients = await RecipientService.GetAllAsync();
+        var existingGifts = await GiftIdeaService.GetAllAsync();
+
+        foreach (var gift in existingGifts.Where(x => !string.IsNullOrWhiteSpace(x.SeedId)))
+        {
+            _savedSeedIds.Add(gift.SeedId!);
+        }
+    }
+
+    private void StartNewSearch()
+    {
+        _profile = CreateDefaultProfile();
+        _suggestions = [];
+        _currentStep = 0;
+        _hasSearched = false;
+        _validationMessage = null;
+        _feedbackMessage = null;
+    }
+
+    private void NextStep()
+    {
+        if (!ValidateCurrentStep())
+        {
+            return;
+        }
+
+        _currentStep = Math.Min(_stepTitles.Count - 1, _currentStep + 1);
+        _validationMessage = null;
+    }
+
+    private void PreviousStep()
+    {
+        _currentStep = Math.Max(0, _currentStep - 1);
+        _validationMessage = null;
+    }
+
+    private async Task RunSearchAsync()
+    {
+        if (!ValidateCurrentStep())
+        {
+            return;
+        }
+
+        _feedbackMessage = null;
+        _isSearching = true;
+        _canSaveSuggestions = false;
+
+        try
+        {
+            _suggestions = (await SuggestionService.GetSuggestionsAsync(_profile, 20)).ToList();
+            _hasSearched = true;
+        }
+        finally
+        {
+            _isSearching = false;
+            _canSaveSuggestions = true;
+        }
+    }
+
+    private async Task SaveToShortlistAsync(GiftSuggestion suggestion)
+    {
+        if (IsSaved(suggestion.SeedId) || _savingSeeds.Contains(suggestion.SeedId))
+        {
+            return;
+        }
+
+        _savingSeeds.Add(suggestion.SeedId);
+
+        try
+        {
+            var recipientId = await EnsureFinderRecipientAsync();
+
+            var giftIdea = new GiftIdea
+            {
+                RecipientId = recipientId,
+                Title = suggestion.Title,
+                Description = suggestion.WhyItFits,
+                Url = suggestion.SearchUrl,
+                Store = "Search online",
+                PriceEstimate = Math.Round((suggestion.MinPrice + suggestion.MaxPrice) / 2m, 2),
+                Status = GiftStatus.Idea,
+                Priority = GiftPriority.Medium,
+                Category = suggestion.Category,
+                EstimatedMinPrice = suggestion.MinPrice,
+                EstimatedMaxPrice = suggestion.MaxPrice,
+                Tags = suggestion.MatchedTags,
+                SeedId = suggestion.SeedId,
+                IsSurprise = false,
+                Notes = "Saved from Gift Finder."
+            };
+
+            await GiftIdeaService.CreateAsync(giftIdea);
+
+            _savedSeedIds.Add(suggestion.SeedId);
+            _feedbackMessage = $"Saved \"{suggestion.Title}\" to Shortlist.";
+        }
+        finally
+        {
+            _savingSeeds.Remove(suggestion.SeedId);
+        }
+    }
+
+    private async Task<int> EnsureFinderRecipientAsync()
+    {
+        var relationshipLabel = GetChoiceLabel(RelationshipOptions, _profile.Relationship);
+        var recipientName = $"Finder - {relationshipLabel}";
+
+        var existing = _recipients.FirstOrDefault(x =>
+            string.Equals(x.Name, recipientName, StringComparison.OrdinalIgnoreCase));
+
+        if (existing is not null)
+        {
+            return existing.Id;
+        }
+
+        var created = await RecipientService.CreateAsync(new Recipient
+        {
+            Name = recipientName,
+            Relationship = relationshipLabel,
+            Notes = "Auto-created for Gift Finder saves."
+        });
+
+        _recipients.Add(created);
+        return created.Id;
+    }
+
+    private bool ValidateCurrentStep()
+    {
+        if (_currentStep == 0 && string.IsNullOrWhiteSpace(_profile.Relationship))
+        {
+            _validationMessage = "Please choose a relationship.";
+            return false;
+        }
+
+        if (_currentStep == 1 && string.IsNullOrWhiteSpace(_profile.Occasion))
+        {
+            _validationMessage = "Please choose an occasion.";
+            return false;
+        }
+
+        if (_currentStep == 2 &&
+            _profile.BudgetMin.HasValue &&
+            _profile.BudgetMax.HasValue &&
+            _profile.BudgetMin.Value > _profile.BudgetMax.Value)
+        {
+            _validationMessage = "Budget min cannot be greater than budget max.";
+            return false;
+        }
+
+        if (_currentStep == 3 &&
+            _profile.InterestTags.Count == 0 &&
+            string.IsNullOrWhiteSpace(_profile.InterestFreeText))
+        {
+            _validationMessage = "Add at least one interest tag or a short free-text interest.";
+            return false;
+        }
+
+        if (_currentStep == 5 && string.IsNullOrWhiteSpace(_profile.Style))
+        {
+            _validationMessage = "Please choose a style preference.";
+            return false;
+        }
+
+        if (_currentStep == 6 && string.IsNullOrWhiteSpace(_profile.ShippingTimeline))
+        {
+            _validationMessage = "Please choose a shipping timeline.";
+            return false;
+        }
+
+        _validationMessage = null;
+        return true;
+    }
+
+    private void ToggleInterestTag(string tag, ChangeEventArgs changeArgs)
+    {
+        var isSelected = changeArgs.Value switch
+        {
+            bool value => value,
+            string value when bool.TryParse(value, out var parsed) => parsed,
+            _ => false
+        };
+
+        if (isSelected)
+        {
+            if (!IsInterestSelected(tag))
+            {
+                _profile.InterestTags.Add(tag);
+            }
+        }
+        else
+        {
+            _profile.InterestTags.RemoveAll(x => string.Equals(x, tag, StringComparison.OrdinalIgnoreCase));
+        }
+    }
+
+    private bool IsInterestSelected(string tag)
+    {
+        return _profile.InterestTags.Any(x => string.Equals(x, tag, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private bool IsSaved(string seedId)
+    {
+        return _savedSeedIds.Contains(seedId);
+    }
+
+    private static string FormatPriceRange(decimal minPrice, decimal maxPrice)
+    {
+        return minPrice == maxPrice
+            ? minPrice.ToString("C0")
+            : $"{minPrice:C0} - {maxPrice:C0}";
+    }
+
+    private static string GetChoiceLabel(IEnumerable<ChoiceOption> options, string value)
+    {
+        return options.FirstOrDefault(option => option.Value == value)?.Label ?? value;
+    }
+
+    private static GiftSearchProfile CreateDefaultProfile()
+    {
+        return new GiftSearchProfile
+        {
+            Relationship = "friend",
+            Occasion = "birthday",
+            Style = "practical",
+            ShippingTimeline = "normal",
+            AlreadyHasEverything = false
+        };
+    }
+
+    private sealed record ChoiceOption(string Value, string Label);
+}

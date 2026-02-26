@@ -41,6 +41,16 @@ public class GiftIdea
     [StringLength(100)]
     public string? Category { get; set; }
 
+    public decimal? EstimatedMinPrice { get; set; }
+
+    public decimal? EstimatedMaxPrice { get; set; }
+
+    [StringLength(500)]
+    public string? Tags { get; set; }
+
+    [StringLength(120)]
+    public string? SeedId { get; set; }
+
     public bool IsSurprise { get; set; } = true;
 
     public DateTime? PurchasedDateUtc { get; set; }
