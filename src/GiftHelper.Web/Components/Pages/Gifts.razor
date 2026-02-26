@@ -288,9 +288,18 @@
 
     private void StartCreate()
     {
+        ResetForm(clearFeedback: true);
+    }
+
+    private void ResetForm(bool clearFeedback)
+    {
         _isEditing = false;
         _editingId = 0;
-        _feedbackMessage = null;
+
+        if (clearFeedback)
+        {
+            _feedbackMessage = null;
+        }
 
         _formModel = CreateNewFormModel();
 
@@ -379,7 +388,7 @@
         }
 
         await LoadGiftsAsync();
-        StartCreate();
+        ResetForm(clearFeedback: false);
     }
 
     private void PromptDelete(GiftIdea gift)
@@ -398,7 +407,7 @@
 
             if (_isEditing && _editingId == _pendingDelete.Id)
             {
-                StartCreate();
+                ResetForm(clearFeedback: false);
             }
         }
 

@@ -43,6 +43,20 @@ Gift Helper is a local-first web app for tracking gift ideas by recipient and oc
    dotnet run --project src/GiftHelper.Web
    ```
 
+## Previous Azure Deployment (App Service)
+Before switching to Render, the app was intended to be deployed as an **Azure App Service** web app.
+
+- Create an **Azure App Service (Linux, .NET 8)** and App Service Plan.
+- Deploy from GitHub (or zip deploy) using `dotnet publish` output for `src/GiftHelper.Web`.
+- Set app setting `ASPNETCORE_ENVIRONMENT=Production`.
+- Set app setting `ConnectionStrings__DefaultConnection=Data Source=/home/gifthelper.db`.
+- Enable WebSockets (recommended for Blazor Interactive Server).
+- Run as a single instance when using SQLite (avoid multi-instance writes on one SQLite file).
+- On startup, EF Core migrations are applied automatically by the app.
+
+### Azure note
+- Prior Azure deployment attempts for this project were blocked when the subscription was read-only/disabled for write operations.
+
 ## Deploy Without Azure (Render)
 This repo includes a Docker deployment path for Render (`Dockerfile` + `render.yaml`).
 
